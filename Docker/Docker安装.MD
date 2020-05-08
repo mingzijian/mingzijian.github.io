@@ -14,7 +14,7 @@ Docker 安装
 
      # 编辑 source.list
      vim /etc/apt/source.list
-     # 添加华为源配置  保存退出 （shift ZZ / :wq ） 
+     # 添加华为源配置  保存退出 （shift ZZ / :wq ） （vim保存出现 E212 时使用 `: w ! sudo tee %`）
      deb [trusted=yes] https://mirrors.huaweicloud.com/deepin stable main contrib non-free
      
      # 更新
