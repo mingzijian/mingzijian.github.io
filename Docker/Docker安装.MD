@@ -6,6 +6,7 @@ Docker 安装
 ##### 前期准备
  - Deepin 镜像下载 https://www.deepin.org/mirrors/releases/
  - Deepin 镜像烧录与系统安装
+ - 修改root密码 `sudo passwd root`
  - Deepin 开放远程端口访问
    - 添加华为源（当无法正常 `apt install` 时）
      ```shell
@@ -20,10 +21,22 @@ Docker 安装
      # 更新
      sudo apt update
      ```
-  - 安装 openssh-server
+  - 安装 openssh-server (已安装请跳过)
     ```shell
     apt install openssh-server
     ```
+    - 检查 ssh 状态 `service ssh status`
+    - 启动 ssh `service ssh start`
+    - 修改配置 sshd_config `sudo vim /etc/ssh/sshd_config`
+
+  - 远程连接 （Xshell finalShell terminal）
+
+##### 安装 Docker
+ - 依赖检查
+ - 获取并安装 Dockers 容器
+ - 配置
+
+
 
 #### 在 CentOS 上安装
 ##### 前期准备
