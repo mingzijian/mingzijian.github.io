@@ -69,7 +69,7 @@ Docker 安装
             "experimental": true
         }
         ```
-     - 修改后重启生效 `systemctl restart docker`
+     - 修改后重启生效 `sudo systemctl daemon-reload` or `systemctl restart docker`
 
 
 
