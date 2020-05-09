@@ -50,11 +50,38 @@ MySQL-用户与权限
 
 
 #### 权限管理
- - 授予权限
+ - 授予权限 `grant`
+```sql
+# 授权 test 用户仅对 js.js_admin 文件进行查询、插入和更新操作
+mysql> grant select,insert,update on js.js_admin to 'test'@'%';
+Query OK, 0 rows affected (0.00 sec)
 
- - 撤销权限
+# 授权 test 用户对所有数据库中文件进行查询、插入和更新操作
+mysql> grant select,insert,update on *.* to 'test'@'%';
+Query OK, 0 rows affected (0.00 sec)
 
- - 查看权限
+# 授权 test用户对所有数据库中文件进行任何操作
+mysql> grant all privileges  on *.*  to 'test'@'%';
+Query OK, 0 rows affected (0.00 sec)
+
+```
+
+ - 撤销权限 `revoke`
+```sql
+
+```
+
+ - 查看权限 `show grants for '用户'@'IP地址'`
+    ```sql
+    mysql> show grants for 'test'@'%';
+    +---------------------------------------------------------------+
+    | Grants for test@%                                             |
+    +---------------------------------------------------------------+
+    | GRANT USAGE ON *.* TO 'test'@'%'                              |
+    | GRANT SELECT, INSERT, UPDATE ON `js`.`js_admin` TO 'test'@'%' |
+    +---------------------------------------------------------------+
+    2 rows in set (0.06 sec)
+    ```
 
 
 
