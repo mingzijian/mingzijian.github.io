@@ -32,9 +32,9 @@ Docker应用-搭建MySQL主从
    ```
  - 启动‘主’‘从’两个容器  (每个容器有其独立的ip，容器内部尽量使用mysql默认的3306端口)
    - 主(Master) 对外映射端口：3306 密码：123456
-     `docker run -p 3306:3306 --name mysql-master -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7`
+     ```docker run -p 3306:3306 --name mysql-master -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7```
    - 从(Slave)  对外映射端口：33062 密码：123456
-     `docker run -p 33062:3306 --name mysql-slave -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7`
+     ```docker run -p 33062:3306 --name mysql-slave -e MYSQL_ROOT_PASSWORD=123456 -d mysql:5.7```
 
  - 容器查看/停止/删除
    - 查看所有正在运行容器 `docker ps`
