@@ -58,11 +58,58 @@ Docker应用-搭建MySQL主从
         ```shell
         # 备份（习惯）
         $ cp /etc/apt/sources.list /etc/apt/sources.list_bak
-        # 替换
+        # 替换 (mirrors.ustc.edu.cn 为 中国科学技术大学源)
         $ sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
         ```
       - 容器内安装 vim `apt update` `apt install vim`
-      - 编辑配置文件 `vim /etc/mysql/my.cnf`
+      - 编辑配置文件 `vim /etc/mysql/my.cnf` 添加以下配置
+        ```
+        [mysqld]
+        server-id = 1 # 表示是本机的序号为1，同一局域网内注意要唯一
+        log_bin = mysql-bin
+        binlog_format = mixed
+        expire_logs_days = 30 # 超过30天的 binlog 删除
+        ```
+      - 重启 mysql 服务使配置生效 `service mysql restart`
+      - 重启 mysql 服务时会使得 docker 容器停止，我们还需要启动容器 `docker start mysql-master`
+      - 创建数据同步用户并授权
+         - 创建用户 
+            ```sql
+                mysql> CREATE USER 'slave'@'%' IDENTIFIED BY '123456';
+                Query OK, 0 rows affected (0.00 sec)
+            ```
+         - 授权 
+            ```
+                mysql> GRANT REPLICATION SLAVE, REPLICATION CLIENT ON *.* TO 'slave'@'%';
+                Query OK, 0 rows affected (0.00 sec)
+            ```
 
    - 从容器(Slave)配置
       - 通过`docker exec -it mysql-slave /bin/bash`命令进入到Slave容器内部
+      - 同主容器(Master)配置一样，在从容器内更换软件源，安装 vim
+      - 编辑配置文件 `vim /etc/mysql/my.cnf` 添加以下配置
+        ```
+        [mysqld]
+        # 表示是本机的序号为2，同一局域网内注意要唯一
+        server-id = 2 
+        # 以备当前 Slave 作为其它 Slave 的 Master 时使用
+        log_bin = mysql-bin 
+        # MIXED模式（MBR）一般的复制使用STATEMENT模式保存binlog，对于STATEMENT模式无法复制的操作使用ROW模式保存binlog，MySQL会根据执行的SQL语句选择日志保存方式。
+        binlog_format = mixed 
+        # 超过30天的 binlog 删除
+        expire_logs_days = 30 
+        ```
+      - 同主容器(Master)一样，重启 mysql 服务和对应容器
+
+   - 链接‘主’‘从’
+
+   - 主从复制排错
+
+   - 主从复制测试
+     - 在 Master 上创建一个数据库，然后检查 Slave 上是否存在此数据库
+
+
+
+#### 参考
+ - https://www.cnblogs.com/songwenjie/p/9371422.html
+
