@@ -102,12 +102,81 @@ Docker应用-搭建MySQL主从
       - 同主容器(Master)一样，重启 mysql 服务和对应容器
 
    - 链接‘主’‘从’
+     - 查看主（Master）状态信息 
+        <br/>File 和 Position 字段的值后面将会用到，在后面的操作完成之前，需要保证 Master 库不能做任何操作，否则将会引起状态变化（File 和 Position 字段的值变化）
+     ```sql
+        mysql> show master status;
+        +------------------+----------+--------------+------------------+-------------------+
+        | File             | Position | Binlog_Do_DB | Binlog_Ignore_DB | Executed_Gtid_Set |
+        +------------------+----------+--------------+------------------+-------------------+
+        | mysql-bin.000001 |      609 |              |                  |                   |
+        +------------------+----------+--------------+------------------+-------------------+
+        1 row in set (0.04 sec)
+     ```
+     - 查看容器信息 `docker inspect xxx`  xxx 为容器 ID/NAMES
+       - 查看 mysql-master 容器ip地址信息 (172.17.0.2)
+        ```shell
+        $ docker inspect --format='{{.NetworkSettings.IPAddress}}' mysql-master
+        172.17.0.2
+        ```
+       - 查看 mysql-slave 容器ip地址信息 (172.17.0.3)
+        ```shell
+        $ docker inspect --format='{{.NetworkSettings.IPAddress}}' mysql-slave
+        172.17.0.3
+        ```
+     - 配置‘从’链向‘主’
+        ```sql
+        mysql> change master to master_host='172.17.0.2', master_user='slave', master_password='123456', master_port=3306, master_log_file='mysql-bin.000001', master_log_pos= 609, master_connect_retry=30;
+        Query OK, 0 rows affected (0.08 sec)
+        ```
+     - 查看‘从’状态信息  `show slave status`
+       <br/>![‘从’状态信息1](https://images.gitee.com/uploads/images/2020/0509/125014_0a858e10_536895.png "屏幕截图.png")
+       - Slave_IO_Running: I/O线程是否被启动并成功地连接到主服务器上
+       - Slave_SQL_Running: SQL线程是否被启动
+     - 开启主从复制 `start slave`
+        ```sql
+        mysql> start slave;
+        Query OK, 0 rows affected (0.00 sec)
+        ```
+     - 再次查看‘从’状态信息  `show slave status`
+       <br/>![‘从’状态信息2](https://images.gitee.com/uploads/images/2020/0509/125634_c13e4c6e_536895.png "屏幕截图.png")
+       <br>SlaveIORunning 和 SlaveSQLRunning 都是 Yes ，主从复制已启动，可以进一步测试数据同步是否能成功。
+
 
    - 主从复制排错
+     - 网络方面 
+       检查 `ip` `port` 等配置
+     - 权限方面 
+       检查账号/密码/授权等
+     - 其他
+       - 检查 Master 的 Position
 
    - 主从复制测试
      - 在 Master 上创建一个数据库，然后检查 Slave 上是否存在此数据库
+     ```sql
+        # 在 Master 上创建一个库
+        mysql> create database js;
+        Query OK, 1 row affected (0.01 sec)
 
+        # 在 Master 上能看到该库
+        mysql> show databases like 'js';
+        +---------------+
+        | Database (js) |
+        +---------------+
+        | js            |
+        +---------------+
+        1 row in set (0.04 sec)
+
+        # 在 Slave 上也能看到该库
+        mysql> show databases like 'js';
+        +---------------+
+        | Database (js) |
+        +---------------+
+        | js            |
+        +---------------+
+        1 row in set (0.04 sec)
+
+     ``
 
 
 #### 参考
