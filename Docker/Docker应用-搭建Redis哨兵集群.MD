@@ -63,32 +63,41 @@ Docker应用-搭建Redis哨兵集群
         ```
       - 容器内安装 vim `apt update` `apt install vim`
       - 配置实例 `vim /data/redis.conf`
-
+        ```
+        logfile "redis.log"
+        port 6379
+        dir /data
+        databases 16
+        daemonize yes
+        appendonly yes
+        appendfilename appendonly.aof
+        # 密码
+        requirepass "redisredis"
+        # 主数据库连接密码
+        masterauth "redisredis"
+        # 从库只读
+        slave-read-only yes
+        # 刷新快照到硬盘中，必须满足两者要求才会触发，即900秒之后至少1个关键字发生变化。
+        save 900 1 
+        # 必须是300秒之后至少10个关键字发生变化。
+        save 300 10 
+        # 必须是60秒之后至少10000个关键字发生变化。
+        save 60 10000 
+        #如果master不能再正常工作，那么会在多个slave中，选择优先值最小的一个slave提升为master，优先值为0表示不能提升为master。
+        slave-priority 100 
+        ```
       - 配置哨兵 `vim /data/redis-sentinel.conf`
+        ```
+        logfile "sentinel.log"
+        port 26379
+        # 哨兵监控的主服务器名称为mymaster，ip为172.17.0.4，端口为6379，将这个主服务器标记为失效至少需要2个哨兵进程的同意
+        sentinel monitor mymaster 172.17.0.4 6379 2
+        sentinel auth-pass mymaster "redisredis"
+        daemonize yes
+        ```
 
    - 配置 redis-6380 （作为： Slave）(ip:172.17.0.5)
-    ```
-    logfile "redis.log"
-    port 6379
-    dir /data
-    databases 16
-    appendonly yes
-    appendfilename appendonly.aof
-    # 密码
-    requirepass "redisredis"
-    # 主数据库连接密码
-    masterauth "redisredis"
-    # 从库只读
-    slave-read-only yes
-    # 刷新快照到硬盘中，必须满足两者要求才会触发，即900秒之后至少1个关键字发生变化。
-    save 900 1 
-    # 必须是300秒之后至少10个关键字发生变化。
-    save 300 10 
-    # 必须是60秒之后至少10000个关键字发生变化。
-    save 60 10000 
-    #如果master不能再正常工作，那么会在多个slave中，选择优先值最小的一个slave提升为master，优先值为0表示不能提升为master。
-    slave-priority 100 
-    ```
+    
    - 配置 redis-6381 （作为： Slave）(ip:172.17.0.6)
 
 #### 参考
