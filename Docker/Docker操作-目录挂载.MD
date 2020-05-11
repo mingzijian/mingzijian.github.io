@@ -19,3 +19,7 @@ $ docker run -it -v /data/test:/data centos /bin/bash
 
 #### 容器销毁了，在宿主机上新建的挂载目录是否会消失？
   容器销毁了，新建的挂载目录不会消失。
+
+
+#### 参考
+ - https://www.cnblogs.com/ivictor/p/4834864.html
