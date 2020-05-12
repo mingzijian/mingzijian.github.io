@@ -7,17 +7,17 @@ Docker配置-网络模式
 |  none模式         |–net=none                   | 容器有独立的Network namespace，但并没有对其进行任何网络设置，如分配veth pair 和网桥连接，配置IP等。 |
 |  bridge模式       |–net=bridge                 |（默认为该模式） |
 
- - host模式
-![host模式](https://images.gitee.com/uploads/images/2020/0512/151504_4fd3d1c3_536895.png "屏幕截图.png")
+ - host模式<br/>
+   ![host模式](https://images.gitee.com/uploads/images/2020/0512/151504_4fd3d1c3_536895.png "host模式.png")
 
- - container模式  
-![container模式](https://images.gitee.com/uploads/images/2020/0512/151516_3396ca33_536895.png "屏幕截图.png")
+ - container模式<br/>
+   ![container模式](https://images.gitee.com/uploads/images/2020/0512/151516_3396ca33_536895.png "container模式.png")
 
- - none模式
-![none模式](https://images.gitee.com/uploads/images/2020/0512/151523_e4463ed3_536895.png "屏幕截图.png")  
+ - none模式<br/>
+   ![none模式](https://images.gitee.com/uploads/images/2020/0512/151523_e4463ed3_536895.png "none模式.png")  
 
- - bridge模式
-![bridge模式](https://images.gitee.com/uploads/images/2020/0512/151532_8be4a861_536895.png "屏幕截图.png")
+ - bridge模式<br/>
+   ![bridge模式](https://images.gitee.com/uploads/images/2020/0512/152106_5dd6a62d_536895.png "bridge模式.png")
 
 
 
