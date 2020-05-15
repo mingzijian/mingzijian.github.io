@@ -1,6 +1,14 @@
 Java引用
 ------------
 
+### 概念介绍
+ - 强引用
+ - 软引用
+ - 弱引用
+ - 虚引用
+
+### 代码示例
+
 #### 强引用
 ```java
 public class StrongReferenceTest {
