@@ -3,12 +3,30 @@ Java引用
 
 ### 概念介绍
  - 强引用
+   不会被清理，即使面临内存溢出
+   `Object object = new Object();`
  - 软引用
+   内存不足时会被清理
+   `SoftReference reference = new SoftReference(object); object = null;`
  - 弱引用
+   会被直接清理，不管内存是否够用
+   `WeakReference reference = new WeakReference(object); object = null;`
+ - 虚引用
+   会被直接清理，不管内存是否够用，而且通过虚引用的 get 方法不会得到对象的引用
+   `PhantomReference refernce = new PhantomReference(object); object = null;`
+
+
+### 应用场景
+ - 强引用
+
+ - 软引用
+
+ - 弱引用
+
  - 虚引用
 
-### 代码示例
 
+### 代码示例
 #### 强引用
 ```java
 public class StrongReferenceTest {
