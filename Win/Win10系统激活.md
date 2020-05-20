@@ -36,3 +36,5 @@ slmgr /ato
 ```
 
 6.**成功**地激活了产品
+
+![Windows已激活](https://images.gitee.com/uploads/images/2020/0520/151548_3fff1171_536895.png "Windows已激活.png")
