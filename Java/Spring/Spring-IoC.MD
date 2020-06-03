@@ -40,5 +40,5 @@ public class B {
 
 ##### 解决方案
 三级缓存
-![三级缓存](https://images.gitee.com/uploads/images/2020/0603/194251_119fce47_536895.png "三级缓存.png")
+![三级缓存](https://images.gitee.com/uploads/images/2020/0603/194458_ab305929_536895.png "三级缓存.png")
 
