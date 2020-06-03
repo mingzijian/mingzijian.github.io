@@ -36,7 +36,9 @@ public class B {
     private A a;
 }
 ```
-![循环依赖](https://images.gitee.com/uploads/images/2020/0603/193544_c26c17a5_536895.png "循环依赖.png")
+![循环依赖](https://images.gitee.com/uploads/images/2020/0603/193915_934bd61f_536895.png "循环依赖.png")
 
 ##### 解决方案
+三级缓存
+![三级缓存](https://images.gitee.com/uploads/images/2020/0603/194251_119fce47_536895.png "三级缓存.png")
 
