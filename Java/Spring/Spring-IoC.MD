@@ -6,3 +6,7 @@ Spring IoC (`Inversion of Control`)
 
 #### 理解
   简单理解就是：将对象的依赖关系控制权交给 Spring ，由 Spring 容器统一管理。
+
+#### 方式实现
+ - 依赖注入（Dependency Injection，简称DI）
+ - 依赖查找（Dependency Lookup）
