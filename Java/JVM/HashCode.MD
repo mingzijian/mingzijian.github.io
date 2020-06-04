@@ -1,5 +1,6 @@
 HashCode 
 ---------
+#### Java 源码
 Object.hashCode()
 ```java
     /**
@@ -29,6 +30,7 @@ Object.hashCode()
     }  
 ```
 
+#### 实验
 ```java
 
     public static void main(String[] args) {
@@ -37,7 +39,7 @@ Object.hashCode()
         System.out.println((int)'a');// 97
         System.out.println(((int)'b');// 98
         System.out.println("ab".hashCode());// 3105
-        System.out.println((31*0) + ('a'));// 97
+        System.out.println((31*0) + ('a'));// 0+97 = 97
         System.out.println((31*((31*0) + ('a'))) + ('b'));// 31*97 + 98 = 3105
         System.out.println(getHashCode("ab"));// 3105  
     }
