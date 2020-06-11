@@ -1,7 +1,11 @@
 项目管理工具软件-Maven
 ---------------------
+## Maven 私服
+### Maven 私服搭建
 
-# 上传 第三方jar 至 Maven私服
+### Maven 私服使用
+
+#### 上传 第三方jar 至 Maven私服
 ```xml
 <dependency>
     <groupId>it.sauronsoftware</groupId>
