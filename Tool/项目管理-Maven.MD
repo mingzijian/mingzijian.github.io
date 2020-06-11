@@ -1,10 +1,22 @@
 项目管理工具软件-Maven
 ---------------------
 ## Maven 私服
-### Maven 私服搭建
+### Maven 私服简介
+Nexus是一个强大的Maven仓库管理器，它极大的简化了本地内部仓库的维护和外部仓库的访问。
+#### Nexus 仓库
+ - hosted，本地仓库
+   - Releases 稳定版本库（生产环境使用）
+   - Snapshots 临时版本库 （开发&测试环境使用）
+   - 3rdParty 第三方库 （管理中央仓库中没有的第三方包）
+ - proxy，代理仓库
+ - group，仓库组
+
+### Maven 私服搭建 
 #### 下载 Nexus Repository OSS
-https://www.sonatype.com/download-nexus-repo-oss
+官方下载地址：https://www.sonatype.com/download-nexus-repo-oss
 #### 安装
+
+#### 启动
 
 #### 配置
 
@@ -38,3 +50,26 @@ https://www.sonatype.com/download-nexus-repo-oss
      - upload
  - 步骤图示
 ![上传第三方jar](https://images.gitee.com/uploads/images/2020/0611/152244_d23375f5_536895.png "上传第三方jar.png")
+
+#### pom.xml 配置
+```xml
+<project ...>
+    ...
+    <properties>
+        <!-- maven仓库地址 -->
+        <mvn.repositories>http://192.168.20.9:8081/nexus/content/repositories</mvn.repositories>
+        ...
+    </properties>
+    ...
+    <distributionManagement>
+        <repository>
+            <id>outfit-deploy-release</id>
+            <url>${mvn.repositories}/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>outfit-deploy-snapshot</id>
+            <url>${mvn.repositories}/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
+```
