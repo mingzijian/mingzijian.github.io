@@ -63,38 +63,38 @@ Nexus是一个强大的Maven仓库管理器，它极大的简化了本地内部�
   <proxies></proxies>
 
   <servers>
-	<server>
-      <id>outfit-deploy-release</id>
+    <server>
+      <id>ming-deploy-release</id>
       <username>username</username>
       <password>password</password>
     </server>
     <server>
-      <id>outfit-deploy-snapshot</id>
+      <id>ming-deploy-snapshot</id>
       <username>username</username>
       <password>password</password>
     </server>
   </servers>
 
   <mirrors>
-	<mirror>
-      <id>nexue</id>
+    <mirror>
+      <id>nexus</id>
       <mirrorOf>*</mirrorOf>
       <url>http://192.168.20.9:8081/nexus/content/groups/public/</url>
     </mirror>
-	<mirror>
-	  <id>huaweicloud</id>
+    <mirror>
+      <id>huaweicloud</id>
       <mirrorOf>*</mirrorOf>
       <url>https://mirrors.huaweicloud.com/repository/maven/</url>
-	</mirror>
+    </mirror>
   </mirrors>
 
   
   <profiles>
 	<profile>
-		<id>outfit</id>
+		<id>ming</id>
 		<repositories>  
 			<repository>
-				<id>outfit-repository</id>
+				<id>ming-repository</id>
 				<releases>
 					<enabled>true</enabled>
 					<updatePolicy>always</updatePolicy>
@@ -113,11 +113,11 @@ Nexus是一个强大的Maven仓库管理器，它极大的简化了本地内部�
 			  <url>http://192.168.20.9:8081/nexus/content/groups/public/</url>
 			  <releases>
 			    <enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
+			    <updatePolicy>always</updatePolicy>
 			  </releases>
 			  <snapshots>
 			    <enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
+			    <updatePolicy>always</updatePolicy>
 			  </snapshots>
 			</pluginRepository>
 		</pluginRepositories>
@@ -125,7 +125,7 @@ Nexus是一个强大的Maven仓库管理器，它极大的简化了本地内部�
   </profiles>
   
   <activeProfiles>
-    <activeProfile>outfit</activeProfile>
+    <activeProfile>ming</activeProfile>
   </activeProfiles>
 
 </settings>
@@ -143,11 +143,11 @@ Nexus是一个强大的Maven仓库管理器，它极大的简化了本地内部�
     ...
     <distributionManagement>
         <repository>
-            <id>outfit-deploy-release</id>
+            <id>ming-deploy-release</id>
             <url>${mvn.repositories}/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>outfit-deploy-snapshot</id>
+            <id>ming-deploy-snapshot</id>
             <url>${mvn.repositories}/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
