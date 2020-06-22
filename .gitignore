@@ -1,0 +1,12 @@
+*.iml
+*.log
+.idea/
+target/
+.settings/
+.classpath
+.project
+ignore-*/
+.git/
+.mvn/
+mvnw
+mvnw.cmd
