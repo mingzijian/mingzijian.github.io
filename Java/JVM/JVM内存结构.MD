@@ -59,6 +59,9 @@ Java虚拟机实现可以为程序员或用户提供对堆初始大小的控制�
 
   计算需要的堆多于自动存储管理系统所能提供的堆，将引发 OutOfMemoryError。
 
+![堆内存分配](https://images.gitee.com/uploads/images/2020/0624/133342_402e183c_536895.png "堆内存分配.png")
+
+
 #### Method Area （方法区）
 
 所有Java虚拟机线程之间共享。
