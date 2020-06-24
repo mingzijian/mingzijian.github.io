@@ -41,7 +41,7 @@ GC
 
 
 ####  ParNew
-
+![ParNew](https://images.gitee.com/uploads/images/2020/0624/141016_6e3be987_536895.png "ParNew.png")
 
 
 #### Parallel Old
