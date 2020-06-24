@@ -66,7 +66,10 @@ GC
 ![并发标记](https://images.gitee.com/uploads/images/2020/0624/140432_022a15fe_536895.png "并发标记.png")
 
 ####  G1
-
+    1、初始标记(STW)
+    2、并发标记
+    3、最终标记(STW)
+    4、筛选回收
 
 
 ####  ZGC
