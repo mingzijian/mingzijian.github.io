@@ -103,8 +103,7 @@ Java虚拟机的实现可以使用传统的栈，俗称“C栈”，以支持本
 
 
 官方文档： https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html#jvms-2.5 
-
-![1592960739775](C:\Users\ming\AppData\Roaming\Typora\typora-user-images\1592960739775.png)
+![jvms-2.5](C:\Users\ming\AppData\Roaming\Typora\typora-user-images\1592960739775.png)
 
 #### 参考
 
