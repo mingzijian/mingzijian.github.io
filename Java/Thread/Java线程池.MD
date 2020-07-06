@@ -12,10 +12,18 @@ Java 线程池
    时间单位,上一参数(即:存活时间)的时间单位
  - BlockingQueue\<Runnable\> workQueue,
    工作队列，新任务被提交后，会先进入到此工作队列中，任务调度时再从队列中取出任务。
+    - ArrayBlockingQueue
+      基于数组的有界阻塞队列,FIFO.
+    - LinkedBlockingQueue
+      基于链表的无界(Interger.MAX)阻塞队列(因为该队列是无界的,所以使用该队列时,最大线程数参数无法产生作用)
+    - SynchronousQuene
+      一个不缓存任务的同步阻塞队列.该队列没有任何容量(一个空队列,并且不允许出现null元素),其中每个插入操作必须等待另一个线程执行相应的删除操作，反之亦然.
+    - PriorityBlockingQueue
+      基于优先级的无界(逻辑上无界)阻塞队列.优先级通过参数Comparator实现,不允许出现不可比较的对象。
  - ThreadFactory threadFactory,
    线程工厂,创建新线程时所使用的工厂
  - RejectedExecutionHandler handler
-   拒绝策略,当线程池中的线程数量达到最大,并且工作队列已满,此时,有新任务提交进来,处理新任务的策略。
+   拒绝策略,当工作队列已满,并且线程池中的线程数量达到最大,此时,有新任务提交进来,处理新任务的策略。
    -  AbortPolicy
     抛出一个RejectedExecutionException,丢弃任务
    ```java
@@ -72,7 +80,7 @@ Java 线程池
         }
     }
 
-      ```
+     ```
    -  DiscardOldestPolicy
       抛弃队列中最老的任务,然后尝试将当前任务加入队列.如果执行器已关闭,丢弃任务
       ```java
