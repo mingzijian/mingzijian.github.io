@@ -51,6 +51,7 @@ Java 线程池
         }
     }
    ```
+   
    -  CallerRunsPolicy
       直接在调用方线程中执行任务.如果执行器已关闭,丢弃任务
       ```java
@@ -79,8 +80,8 @@ Java 线程池
             }
         }
     }
-
      ```
+     
    -  DiscardOldestPolicy
       抛弃队列中最老的任务,然后尝试将当前任务加入队列.如果执行器已关闭,丢弃任务
       ```java
@@ -111,6 +112,7 @@ Java 线程池
             }
         }
     }
+    
      ```
    -  DiscardPolicy
       默默地丢弃任务.
@@ -134,7 +136,6 @@ Java 线程池
         public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
         }
     }
-
      ```
 
 
