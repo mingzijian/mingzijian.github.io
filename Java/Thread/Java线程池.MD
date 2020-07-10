@@ -201,5 +201,13 @@ java.util.concurrent.ThreadPoolExecutor
 ### 使用
 #### 使用方式
 
+##### 工具类  java.util.concurrent.Executors
+
+- newFixedThreadPool 新建固定大小的线程池
+- newWorkStealingPool 新建具有抢占式操作的线程池
+- newSingleThreadExecutor 新建单线程执行器(线程池中只有一个线程,串行处理任务)
+- newCachedThreadPool 新建缓存线程池(线程数量不固定,自动增长)
+- newScheduledThreadPool 新建固定大小的可调度线程池(延时或定时执行任务)
+
 #### 使用场景
 
