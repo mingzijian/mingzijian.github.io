@@ -36,7 +36,7 @@ com.alibaba.dubbo.config.ServiceConfig
             port = defaultPort;
         }
         if (port == null || port <= 0) {
-        	// 端口号小与0时,随机一个端口号
+        	// 端口号<0时,随机一个端口号
             port = getRandomPort(name);
             if (port == null || port < 0) {
                 port = NetUtils.getAvailablePort(defaultPort);
