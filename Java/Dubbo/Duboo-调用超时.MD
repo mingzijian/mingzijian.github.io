@@ -121,3 +121,7 @@ wake up
 ### 建议
 一般情况下建议在Provider上设置超时时间。
 
+
+
+### 参考
+- http://dubbo.apache.org/zh-cn/docs/source_code_guide/service-invoking-process.html
