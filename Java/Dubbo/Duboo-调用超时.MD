@@ -1,0 +1,123 @@
+Dubbo 服务调用超时
+-----------------------------
+Consumer 调用 Provider 提供的服务，Provider 长时间（超过设置的超时时间）未响应。
+
+### 测试代码
+
+Dubbo Version : 2.6.2
+com.alibaba:dubbo:2.6.2
+
+#### Consumer 代码
+
+```java
+@Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SpringBootMain.class)
+public class RpcTimeoutTest {
+
+	// Consumer 设置超时6s
+    @Reference(version = "v20200721-test",timeout = 6000)
+    private RpcTimeoutTestService rpcTimeoutTestService;
+
+    @Test
+    public void testTimeout(){
+        long start = System.currentTimeMillis();
+        try {
+            String sleep = rpcTimeoutTestService.sleep(5);
+            System.out.println(sleep);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("执行耗时"+(System.currentTimeMillis()-start));
+
+    }
+}
+```
+#### Provider 代码
+```java
+// Provider 设置超时3s
+@Service(version = "v20200721-test",timeout = 3000)
+public class RpcTimeoutTestServiceImpl implements RpcTimeoutTestService {
+    @Override
+    public String sleep(int second) {
+        try {
+            for (int i = 0; i < second; i++) {
+                TimeUnit.SECONDS.sleep(1);
+                System.out.println(i);
+            }
+        } catch (InterruptedException e) {
+            return "ignore error";
+        }
+        return "wake up";
+    }
+}
+```
+### 测试参数及打印结果
+#### 场景1
+##### 测试参数
+Consumer 设置超时时间为：6s
+Provider 设置超时时间为：3s
+Provider 执行循环执行5次sleep1s
+##### 打印结果
+- consumer
+wake up
+执行耗时5067
+- provider
+0
+1
+2
+3
+4
+
+#### 场景2
+##### 测试参数
+Consumer 设置超时时间为：3s
+Provider 设置超时时间为：6s
+Provider 执行循环执行5次sleep1s
+##### 打印结果
+- consumer
+com.alibaba.dubbo.rpc.RpcException ...
+Caused by: com.alibaba.dubbo.remoting.TimeoutException: Waiting server-side response timeout by scan timer. start time: 2020-07-21 10:46:10.923, end time: 2020-07-21 10:46:13.954, client elapsed: 40 ms, server elapsed: 2990 ms, timeout: 3000 ms,...
+执行耗时3042
+- provider
+0
+1
+2
+3
+4
+
+
+#### 场景3
+##### 测试参数
+(不设置超时时间，默认为0s，不会超时)
+Consumer 设置超时时间为：0s 
+Provider 设置超时时间为：0s
+Provider 执行循环执行5次sleep1s
+##### 打印结果
+- consumer
+wake up
+执行耗时5155
+- provider
+0
+1
+2
+3
+4
+#### 更多组合场景
+略
+
+### 结论
+1. Consumer 设置超时时间 > 0 时
+	以Consumer 设置的超时时间为准，覆盖Provider设置的超时时间
+2. Consumer 未设置超时时间（或设置为：0）时
+	以Provider设置的超时时间为准，若Provider也未设置超时时间，则不会触发超时
+3. 调用超时后
+	Consumer会出现一个RpcException，但是Provider会继续执行
+4. 默认超时时间
+	0
+5. 优先级别
+	consumer 端配置 > provider 端配置 > 全局配置
+	method 配置 > Interface 配置
+### 建议
+一般情况下建议在Provider上设置超时时间。
+
