@@ -52,6 +52,14 @@
 
 - [使用动态变量](https://learning.postman.com/docs/sending-requests/variables/#using-dynamic-variables)
 
+    `{{$guid}}`：添加一个V4风格GUID(如： aa002-44ac-45ca-aae3-52bf19650e2d)
+
+    `{{$timestamp}}`：将当前的时间戳，精确到秒
+
+    `{{$randomInt}}`：添加0和1000之间的随机整数
+
+    更多...
+
 - [下一步](https://learning.postman.com/docs/sending-requests/variables/#next-steps)
     有关如何管理和共享变量数据集的概述，请参阅管理环境
     有关在请求脚本中使用变量的详细信息，请参阅脚本简介
