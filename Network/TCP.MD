@@ -45,3 +45,14 @@ TCP (传输控制协议)
 在处理完数据之后，被动方再发送一个FIN(N)给主动方，
 主动方回复ACK(N+1),连接正常断开。
 即：在第2次和第3次之间，被动方可能仍需要有时间来处理数据，又不能让主动方一直傻等着。
+
+#### 为什么需要TIME_WAIT状态
+- 保证TCP全双工 连接正常终止
+- 保证网络中迷失的数据包连接正常过期
+
+##### 查看 tcp_fin_timeout
+`cat /proc/sys/net/ipv4/tcp_fin_timeout`
+一般10秒到120秒不等
+
+### 参数调优
+ - https://blog.csdn.net/erlib/article/details/50236919
