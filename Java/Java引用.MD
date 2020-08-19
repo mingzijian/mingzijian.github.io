@@ -2,6 +2,7 @@ Java引用
 ------------
 
 ### 概念介绍
+
  - 强引用
    不会被清理，即使面临内存溢出
    `Object object = new Object();`
@@ -15,15 +16,61 @@ Java引用
    会被直接清理，不管内存是否够用，而且通过虚引用的 get 方法不会得到对象的引用
    `PhantomReference refernce = new PhantomReference(object); object = null;`
 
-
 ### 应用场景
- - 强引用
 
+ - 强引用
+   比比皆是
+   `Object object = new Object();`
+   
  - 软引用
+   一般用来实现一些内存敏感的缓存，只要内存空间足够，对象就会保持不被回收掉，比如网页缓存、图片缓存等。
 
  - 弱引用
+   ThreadLocalMap 中的 Entry 继承自 WeakReference 。
+   ```java
+   package java.lang;
+   import ...
+   public class ThreadLocal<T> {
+     ...
+     static class ThreadLocalMap {
+       static class Entry extends WeakReference<ThreadLocal<?>> {
+            /** 与此ThreadLocal相关联的value，ThreadLocal作为key */
+            Object value;
 
+            Entry(ThreadLocal<?> k, Object v) {
+                super(k);
+                value = v;
+            }
+        }
+        ...
+     }
+     ...
+   }
+   ```
+   
+   Spring 事务传递是通过 ThreadLocal 实现的。
+   ```java
+   package org.springframework.transaction.support;
+   import ...
+   public abstract class TransactionSynchronizationManager {
+    private static final Log logger = LogFactory.getLog(TransactionSynchronizationManager.class);
+    private static final ThreadLocal<Map<Object, Object>> resources = new NamedThreadLocal("Transactional resources");
+    private static final ThreadLocal<Set<TransactionSynchronization>> synchronizations = new NamedThreadLocal("Transaction synchronizations");
+    private static final ThreadLocal<String> currentTransactionName = new NamedThreadLocal("Current transaction name");
+    private static final ThreadLocal<Boolean> currentTransactionReadOnly = new NamedThreadLocal("Current transaction read-only status");
+ private static final ThreadLocal<Integer> currentTransactionIsolationLevel = new NamedThreadLocal("Current transaction isolation level");
+    private static final ThreadLocal<Boolean> actualTransactionActive = new NamedThreadLocal("Actual transaction active");
+   
+    public TransactionSynchronizationManager() {
+   }
+    ...
+   }
+   ```
+   
  - 虚引用
+   在使用虚引用时，必须和引用队列关联使用。在对象的垃圾回收过程中，如果GC发现一个对象还存在虚引用，则会把这个虚引用加入到与之关联的引用队列中。程序可以通过判断引用队列中是否已经加入了虚引用，来了解被引用的对象是否将要被垃圾回收。如果程序发现某个虚引用已经被加入到引用队列，那么就可以在所引用的对象内存被回收之前采取必要的行动防止被回收。
+虚引用主要用来跟踪对象被垃圾回收器回收的活动。
+DirectByteBuffer 是通过虚引用(Phantom Reference)来实现堆外内存的释放的。 
 
 
 ### 代码示例
