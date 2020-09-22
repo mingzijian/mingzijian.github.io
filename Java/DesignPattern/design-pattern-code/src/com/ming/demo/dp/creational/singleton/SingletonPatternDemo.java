@@ -10,4 +10,24 @@ package com.ming.demo.dp.creational.singleton;
  */
 public class SingletonPatternDemo {
 
+    public static void main(String[] args) {
+        System.out.println("lazy:"
+                +(LazySingleton.getInstance()==LazySingleton.getInstance()));
+
+        System.out.println("hungry:"
+                +(HungrySingleton.getInstance()==HungrySingleton.getInstance()));
+
+        System.out.println("dcl:"
+                +(DoubleCheckLockSingleton.getInstance()==DoubleCheckLockSingleton.getInstance()));
+
+        System.out.println("sic:"
+                +(StaticInnerClassSingleton.getInstance()==StaticInnerClassSingleton.getInstance()));
+
+        System.out.println("es:"
+                +(EnumSingleton.getInstance()==EnumSingleton.getInstance()));
+
+        System.out.println("se:"
+                +(SingletonEnum.INSTANCE==SingletonEnum.INSTANCE));
+
+    }
 }
