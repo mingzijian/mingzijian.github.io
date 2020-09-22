@@ -6,12 +6,10 @@ package com.ming.demo.dp.creational.singleton;
  * @date 2020-09-22 13:17
  */
 public class LazySingleton {
-
     private static LazySingleton singleton;
-
     private LazySingleton(){}
 
-    private static synchronized LazySingleton getInstance(){
+    public static synchronized LazySingleton getInstance(){
         if(singleton==null){
             singleton=new LazySingleton();
         }
