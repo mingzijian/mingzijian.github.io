@@ -26,7 +26,7 @@ public class Jack extends Human {
     @Override
     public void listen(Human from, String msg) {
         if(this.refuseListenList!=null && this.refuseListenList.contains(from.getClass().getSimpleName())){
-            System.out.println("我不听");
+            System.out.println(this.getClass().getSimpleName()+"：我不听");
             return;
         }
         super.listen(from,msg);

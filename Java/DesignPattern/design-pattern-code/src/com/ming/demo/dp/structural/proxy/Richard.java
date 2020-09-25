@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 小马
+ * 强子
+ *
  * @author ming
  * @date 2020-09-24 13:45
  */
-public class Pony extends Human{
-    private String name="Pony";
+public class Richard extends Human {
     private List<String> refuseListenList;
 
-    public Pony() {
+    public Richard() {
         refuseListenList=new ArrayList<>();
         refuseListenList.add("Jack");
     }

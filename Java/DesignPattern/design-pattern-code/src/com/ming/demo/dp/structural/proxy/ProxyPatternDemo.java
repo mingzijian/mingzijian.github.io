@@ -13,9 +13,14 @@ public class ProxyPatternDemo {
         Human jack=new Jack();
         Human pony=new Pony();
         Human william=new William();
+        Human richard=new Richard();
         // jack直接对pony说
         jack.say(pony,"hi");
         // william替jack对pony说
         william.take(jack,pony,"hi");
+        // jack把pony的话带给richard
+        jack.take(pony,richard,"hi");
+        // pony直接对richard说
+        pony.say(richard,"hi");
     }
 }
