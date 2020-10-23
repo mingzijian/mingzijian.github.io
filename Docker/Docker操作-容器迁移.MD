@@ -46,7 +46,7 @@ scp local_file remote_username@remote_ip:remote_file
 #### 在目标服务器上加载导入容器并启动
 
 ```shell
-> docker load -i showdoc-save.tardoc
+> docker load -i showdoc-save.tar
 
 > docker images
 <
