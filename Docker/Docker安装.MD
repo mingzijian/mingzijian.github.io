@@ -73,8 +73,6 @@ Docker 安装
 
 
 
-
-
 #### 在 CentOS 上安装
 ##### 前期准备
  - CentOS 镜像下载 http://isoredirect.centos.org/
@@ -85,10 +83,45 @@ Docker 安装
    $ uname -r 
    ```
  - 获取并安装 Dockers 容器
+   - 卸载旧版本
+     ```shell
+        > sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine
+     ```
+   - 安装并使用仓库
+     ```shell
+        > sudo yum install -y yum-utils
+        > sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+     
+     ```
+   - 安装Docker引擎
+    ```shell
+        > sudo yum install docker-ce docker-ce-cli containerd.io
+    ```
  - 配置
+   - 启动Docker
+    ```shell
+        > sudo systemctl start docker
+    ```
+   - 运行镜像
+     ```shell
+        > sudo docker images
+        > sudo docker run hello-world
+     ```
 
 
 ### 在 Windows 上安装
-
+Get Docker Desktop for Windows
+https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe
 
 ### 在 Mac 上安装
+Get Docker Desktop for Mac
+https://desktop.docker.com/mac/stable/Docker.dmg
