@@ -93,6 +93,73 @@
 #### 编写预请求脚本
 
 #### 编写测试用例
+##### 测试脚本示例
+###### 测试入门
+要尝试首次编写测试脚本，请在Postman应用程序中打开一个请求，然后打开“Tests”选项卡。
+输入以下JavaScript代码：
+```javascript
+pm.test("Status code is 200", function () {
+  pm.response.to.have.status(200);
+});
+```
+此代码使用`pm`库来运行测试方法。
+此测试检查API返回的响应代码。
+如果响应代码为200，则测试将通过，否则将失败。
+单击Send并检查响应区域中的测试结果输出。
+
+以下代码是使用`expect`语法实现与上述测试相同的另一种方法：
+```javascript
+pm.test("Status code is 200", () => {
+  pm.expect(pm.response.code).to.eql(200);
+});
+```
+
+###### 使用多个断言
+```javascript
+pm.test("The response has all properties", () => {
+    //parse the response json and test three properties
+    const responseJson = pm.response.json();
+    pm.expect(responseJson.type).to.eql('vip');
+    pm.expect(responseJson.name).to.be.a('string');
+    pm.expect(responseJson.id).to.have.lengthOf(1);
+});
+```
+###### 解析接口的响应数据
+要解析JSON数据，请使用以下语法：
+```javascript
+const responseJson = pm.response.json();
+```
+要解析XML数据，请使用以下语法：
+```javascript
+const responseJson = xml2Json(pm.response.text());
+```
+解析CSV：
+```javascript
+const parse = require('csv-parse/lib/sync');
+const responseJson = parse(pm.response.text());
+```
+解析HTML：
+```javascript
+const $ = cheerio.load(pm.response.text());
+// 测试输出html
+console.log($.html());
+```
+###### 处理不解析的响应数据
+如果您无法将响应体解析为JavaScript，因为它的格式不是JSON、XML、HTML、CSV或任何其他可解析的数据格式，那么您仍然可以对数据进行断言。
+
+您可以测试响应正文是否包含字符串：
+```javascript
+pm.test("Body contains string",() => {
+  pm.expect(pm.response.text()).to.include("customer_id");
+});
+```
+您还可以测试响应是否与字符串匹配（通常只对短响应有效）：
+```javascript
+pm.test("Body is string", function () {
+  pm.response.to.have.body("whole-body-text");
+});
+```
+
 
 #### 脚本引用
 
