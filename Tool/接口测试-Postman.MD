@@ -25,7 +25,10 @@ go.postman.co/build
 #### 模板
 #### 收藏夹
 #### 工作区
+
 #### 设置
+##### 常规设置
+
 
 #### 数据导入/导出
 ##### 导入数据
@@ -62,6 +65,18 @@ go.postman.co/build
     - Local
 
 - [定义变量](https://learning.postman.com/docs/sending-requests/variables/#defining-variables)
+  - 定义全局变量（Global）
+  - 定义集合变量 （Collection）
+  - 定义本地变量 （Local）
+  - 在脚本中定义变量
+	```javascript
+	// 设置变量
+	pm.globals.set("variable_key", "variable_value");
+	pm.collectionVariables.set("variable_key", "variable_value");
+	pm.environment.set("variable_key", "variable_value");
+	// 移除变量
+	pm.environment.unset("variable_key");
+	```
 
 - [访问变量](https://learning.postman.com/docs/sending-requests/variables/#accessing-variables)
 
