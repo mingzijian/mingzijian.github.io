@@ -27,8 +27,30 @@ this is a test line
 
 ### 黑洞 （/dev/null ）
 `/dev/null` 是一个很特殊的文件，你写入的任何东西都会清空。就像一个黑洞。
+示例
+```
+> echo hello >/dev/null
+<
+
+> echo "this is a test line" > input.txt
+> cat input.txt
+<
+this is a test line
+> cat /dev/null > input.txt
+<
+
+> cat input.txt
+<
+
+```
 
 ### 重定向
 重定向的符号有两个：`>`或`>>`
 - `>` 覆盖写入（先清空文件，再写入内容）
+	`>` 默认等同于`>1`，即：重定向缺省文件名描述符为标准输出
 - `>>` 追加写入 （不清空文件，追加到现有文件的尾部）
+
+示例
+`2>&1` 表示错误输出重定向到标准输出
+`>/dev/null` 表示将标准输出重定向到“黑洞”
+`>/dev/null 2>&1` 表示将标准输出及错误输出全部重定向到“黑洞”

@@ -21,3 +21,18 @@ Linux 分类
 
 ### 如何选择版本
 ![如何选择版本](https://images.gitee.com/uploads/images/2020/1028/110240_e513060e_536895.png "如何选择版本.png")
+
+
+
+### Linux 下载
+
+- https://www.linux.org/pages/download/
+
+
+
+### 国产
+
+- 统信UOS https://www.chinauos.com/
+- 深度Deepin https://www.deepin.com/
+- 麒麟Kylinos http://www.kylinos.cn/
+- 中兴新支点 http://www.gd-linux.com/
