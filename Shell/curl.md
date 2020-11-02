@@ -1,6 +1,6 @@
 CURL (CommandLine Uniform Resource Locator)
 ---------------------------------------------------------------------------
-用于使用URL传输数据命令行工具和库。
+用于使用URL传输数据的命令行工具和库。
 
 ### 常用参数
 
@@ -31,7 +31,7 @@ CURL (CommandLine Uniform Resource Locator)
 |-R/--remote-time	|在本地生成文件时，保留远程文件时间               |
 |--retry		|传输出现问题时，重试的次数                       |
 |--retry-delay		|传输出现问题时，设置重试间隔时间                 |
-|--retry-max-time	|传输出现问题时，设置最大重试时间                 |
+|--retry-max-time	|传输出现问题时，设置最长总重试时间                 |
 |--socks4		|用socks4代理给定主机和端口                       |
 |--socks5		|用socks5代理给定主机和端口                       |
 |-t/--telnet-option	|Telnet选项设置                                   |
@@ -44,7 +44,7 @@ CURL (CommandLine Uniform Resource Locator)
 |-V/--version		|显示版本信息                                     |
 |-w/--write-out [format]|按格式输出                                       |
 |-x/--proxy		|在给定的端口上使用HTTP代理                       |
-|-X/--request		|指定什么命令                                     |
+|-X/--request		|指定请求方式                                     |
 |-y/--speed-time	|放弃限速所要的时间。默认为30                     |
 |-Y/--speed-limit	|停止传输速度的限制，速度时间'秒                  |
 |-z/--time-cond		|传送时间设置                                     |
@@ -238,5 +238,5 @@ curl -d '{"login": "curl", "pass": "123456"}' -H 'Content-Type: application/json
 ```
 
 ### 参考
-
-- https://curl.haxx.se
+- https://curl.haxx.se/docs/httpscripting.html
+- https://www.cnblogs.com/aftree/p/9293071.html
