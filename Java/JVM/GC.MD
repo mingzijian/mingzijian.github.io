@@ -113,7 +113,7 @@ GC
 同时，为了避免全堆扫描，G1使用了Remembered Set来管理相关的对象引用信息。
 当进行内存回收时，在GC根节点的枚举范围中加入Remembered Set即可保证不对全堆扫描也不会有遗漏了。
 ##### SATB (Snapshot At The Beginning + Store Barrier )(原始快照+写屏障)
-    SATB 算法认为开始标记的都认为是活的对象。
+    SATB 算法认为开始标记的都是活的对象。
 如三色标记图所示,引用B到D 的引用改为B到C时，
 通过write barrier写屏障技术，
 会把B到D 的引用推到gc 遍历执行的堆栈上，保证还可以遍历到D对象，
