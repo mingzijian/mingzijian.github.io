@@ -237,6 +237,15 @@ curl -d '{"login": "curl", "pass": "123456"}' -H 'Content-Type: application/json
 
 ```
 
+### 其他
+#### 获取本机外网IP
+```
+curl ifconfig.me
+curl icanhazip.com
+curl ipinfo.io
+curl whatismyip.akamai.com
+```
+
 ### 参考
 - https://curl.haxx.se/docs/httpscripting.html
 - https://www.cnblogs.com/aftree/p/9293071.html

@@ -20,22 +20,36 @@ public final class System {
 #### 标准输入、标准输出和错误输出流
 ##### 标准输入 `System.in`
 `System.in.available()`
-`System.in.available()`
-`System.in.available()`
-`System.in.available()`
+`System.in.close()`
+`System.in.read()`
+`System.in.reset()`
 
 
 ##### 标准输出 `System.out`
+`System.out.flush()`
+`System.out.format()`
+`System.out.print()`
+`System.out.printf()`
+`System.out.println()`
 
 ##### 错误输出 `System.err`
-
+`System.err.flush()`
+`System.err.format()`
+`System.err.print()`
+`System.err.printf()`
+`System.err.println()`
 
 #### 外部定义的属性和环境变量
 ##### 属性
+`initProperties(Properties):Properties`
+
 `getProperties():Properties`
 `setProperties(Properties):void`
 
+`checkKey(String):void`
+
 `getProperty(String):String`
+`clearProperty(String):String`
 
 `getProperty(String,String):String`
 `setProperty(String,String):String`
@@ -133,4 +147,12 @@ public final class System {
 
 #### 快速复制数组
 `System.arraycopy(Object,int,Object,int,int):void`
+
+
+#### 其他
+##### gc
+运行垃圾收集器。
+##### exit
+终止当前正在运行的JVM。
+
 
