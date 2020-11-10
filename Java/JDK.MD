@@ -1,0 +1,41 @@
+JDK
+------
+
+### CentOS配置JDK
+#### 下载
+```shell
+wget https://repo.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
+```
+
+#### 解压
+```shell
+tar -zxvf jdk-8u181-linux-x64.tar.gz
+# 移动到指定目录
+mv jdk1.8.0_181/  /usr/local/
+```
+
+#### 配置
+```shell
+vim /etc/profile
+```
+添加以下配置
+```
+# Java
+export JAVA_HOME=/usr/local/jdk1.8.0_181
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib
+```
+```shell
+# 使变更配置生效
+source /etc/profile
+# 验证
+> java -version
+<
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
+
+```
+
+### 镜像
+- [华为云](https://repo.huaweicloud.com/java/jdk/8u181-b13/) 

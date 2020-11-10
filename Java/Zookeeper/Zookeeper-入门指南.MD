@@ -3,8 +3,14 @@ ZooKeeper 入门指南
 ### 快速开始
 #### 下载
 - https://zookeeper.apache.org/releases.html#download
+```shell
+wget https://www.apache.org/dyn/closer.lua/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz
+
+wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.6.2/apache-zookeeper-3.6.2-bin.tar.gz
+```
 
 #### 单机模式
+
 ##### 配置
 启动ZooKeeper之前，需要一个配置文件（建议命名为：`conf/zoo.cfg`）。
 示例：
