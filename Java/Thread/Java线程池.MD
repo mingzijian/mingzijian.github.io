@@ -25,6 +25,7 @@ Java 线程池
    线程工厂,创建新线程时所使用的工厂
  - RejectedExecutionHandler handler
    拒绝策略,当工作队列已满,并且线程池中的线程数量达到最大,此时,有新任务提交进来,处理新任务的策略。
+   
    -  AbortPolicy
     抛出一个RejectedExecutionException,丢弃任务
    ```java
@@ -36,8 +37,8 @@ Java 线程池
             /**
              * Creates an {@code AbortPolicy}.
              */
-            public AbortPolicy() { }
-
+         public AbortPolicy() { }
+   
             /**
              * Always throws RejectedExecutionException.
              *
@@ -66,8 +67,8 @@ Java 线程池
             /**
              * Creates a {@code CallerRunsPolicy}.
              */
-            public CallerRunsPolicy() { }
-
+         public CallerRunsPolicy() { }
+   
             /**
              * Executes task r in the caller's thread, unless the executor
              * has been shut down, in which case the task is discarded.
@@ -85,6 +86,7 @@ Java 线程池
      
    -  DiscardOldestPolicy
       抛弃队列中最老的任务,然后尝试将当前任务加入队列.如果执行器已关闭,丢弃任务
+      
       ```java
         /**
          * A handler for rejected tasks that discards the oldest unhandled
@@ -94,9 +96,9 @@ Java 线程池
         public static class DiscardOldestPolicy implements RejectedExecutionHandler {
             /**
              * Creates a {@code DiscardOldestPolicy} for the given executor.
-             */
-            public DiscardOldestPolicy() { }
-
+          */
+         public DiscardOldestPolicy() { }
+      
             /**
              * Obtains and ignores the next task that the executor
              * would otherwise execute, if one is immediately available,
@@ -112,7 +114,7 @@ Java 线程池
                     e.execute(r);
                 }
             }
-        }
+       }
      ```
      
    -  DiscardPolicy
@@ -125,9 +127,9 @@ Java 线程池
         public static class DiscardPolicy implements RejectedExecutionHandler {
             /**
              * Creates a {@code DiscardPolicy}.
-             */
+          */
             public DiscardPolicy() { }
-
+   
             /**
              * Does nothing, which has the effect of discarding task r.
              *
@@ -140,34 +142,15 @@ Java 线程池
      ```
 
 
-java.util.concurrent.ThreadPoolExecutor
+
+
 ```java
-/**
-     * Creates a new {@code ThreadPoolExecutor} with the given initial
-     * parameters.
-     *
-     * @param corePoolSize the number of threads to keep in the pool, even
-     *        if they are idle, unless {@code allowCoreThreadTimeOut} is set
-     * @param maximumPoolSize the maximum number of threads to allow in the
-     *        pool
-     * @param keepAliveTime when the number of threads is greater than
-     *        the core, this is the maximum time that excess idle threads
-     *        will wait for new tasks before terminating.
-     * @param unit the time unit for the {@code keepAliveTime} argument
-     * @param workQueue the queue to use for holding tasks before they are
-     *        executed.  This queue will hold only the {@code Runnable}
-     *        tasks submitted by the {@code execute} method.
-     * @param threadFactory the factory to use when the executor
-     *        creates a new thread
-     * @param handler the handler to use when execution is blocked
-     *        because the thread bounds and queue capacities are reached
-     * @throws IllegalArgumentException if one of the following holds:<br>
-     *         {@code corePoolSize < 0}<br>
-     *         {@code keepAliveTime < 0}<br>
-     *         {@code maximumPoolSize <= 0}<br>
-     *         {@code maximumPoolSize < corePoolSize}
-     * @throws NullPointerException if {@code workQueue}
-     *         or {@code threadFactory} or {@code handler} is null
+package java.util.concurrent;
+import ...
+public class ThreadPoolExecutor extends AbstractExecutorService {
+    ...
+    /**
+     * 使用给定的初始参数构造一个新的ThreadPoolExecutor。
      */
     public ThreadPoolExecutor(int corePoolSize,
                               int maximumPoolSize,
@@ -176,23 +159,10 @@ java.util.concurrent.ThreadPoolExecutor
                               BlockingQueue<Runnable> workQueue,
                               ThreadFactory threadFactory,
                               RejectedExecutionHandler handler) {
-        if (corePoolSize < 0 ||
-            maximumPoolSize <= 0 ||
-            maximumPoolSize < corePoolSize ||
-            keepAliveTime < 0)
-            throw new IllegalArgumentException();
-        if (workQueue == null || threadFactory == null || handler == null)
-            throw new NullPointerException();
-        this.acc = System.getSecurityManager() == null ?
-                null :
-                AccessController.getContext();
-        this.corePoolSize = corePoolSize;
-        this.maximumPoolSize = maximumPoolSize;
-        this.workQueue = workQueue;
-        this.keepAliveTime = unit.toNanos(keepAliveTime);
-        this.threadFactory = threadFactory;
-        this.handler = handler;
+                              ...
     }
+    ...
+}
 ```
 
 ### 作用

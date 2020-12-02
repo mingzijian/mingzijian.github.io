@@ -1,8 +1,9 @@
 Java线程-状态
 -------------
 #### Java线程的6种状态
+
  - NEW 新建
-  实现Runnable接口和继承Thread可以得到一个线程类，new一个实例出来，但还没有调用start()方法，线程就进入了初始状态。
+    实现Runnable接口和继承Thread可以得到一个线程类，new一个实例出来，但还没有调用start()方法，线程就进入了初始状态。
   ```java
   Thread thread = new Thread();
   ```
