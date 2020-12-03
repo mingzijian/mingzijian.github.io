@@ -80,3 +80,4 @@ Netty 作为高性能的基础通信组件，它本身提供了 TCP/UDP 和 HTTP
 
 - [官网](https://netty.io)
 - [Netty API 4.1](https://netty.io/4.1/api/index.html)
+- [Netty面试题 --疯狂创客圈](https://www.cnblogs.com/crazymakercircle/p/13903625.html)
