@@ -4,6 +4,8 @@ Netty
 	Netty是一个异步事件驱动的网络应用框架，用于快速开发可维护的高性能服务器和客户端。
 
 ### 特性（优势）
+ ![Netty特性](https://images.gitee.com/uploads/images/2020/1203/151410_0cbec12e_536895.png "Netty特性.png")
+
 #### 设计
 统一API
 可拓展
