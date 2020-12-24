@@ -95,6 +95,11 @@ CCR提供了一种将索引从主集群自动同步到可作为热备份的辅�
 ##### 解决方案
 把read_only_allow_delete设置为false。
 
+
+### 分词
+#### 分词器
+- [IK分词器--github](https://github.com/medcl/elasticsearch-analysis-ik)
+
 ### 快速入门（小试牛刀）
 
 1. 获得一个弹性搜索集群并运行
