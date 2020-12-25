@@ -5,10 +5,29 @@ join: 多张表的连接
 ### join方式
 - left join
 - right join
-- inner join
-- outer join
+- inner join （交集）
+- outer join （并集）
 - nature join
 - cross join
+
+#### nature join （自然连接）
+##### using
+MySQL中连接SQL语句中，`on`子句的语法格式为：
+`on table1.column_name = table2.column_name`。
+当模式设计对连接表的列采用了相同的命名样式时，
+就可以使用 `using` 语法来简化` on `语法，
+格式为：`using(column_name)`。
+`using`会去除`using`指定的列，而`on`不会。
+自然连接就是`using`子句的简化版。
+```
+SELECT * FROM table1 JOIN table2 USING(column_name) 
+
+SELECT * FROM table1 NATURAL JOIN table2
+```
+
+#### cross join （交叉连接，笛卡尔积）
+`cross join` 结果集是两个关联表的行的乘积。
+通常，如果每个表分别具有`n`行和`m`行，则结果集将具有`n*m`行。
 
 ### join算法
 - Nested Loop Join
