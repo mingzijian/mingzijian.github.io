@@ -1,0 +1,42 @@
+JavaFX-SpringBoot
+-----------------------------
+一个基于SpringBoot的JavaFx程序
+### 项目目录结构
+
+```
+-pom.xml
++src
+  +main
+    +java
+      +com.xxx.xxx
+        -MainApp.java
+        +controller
+          -xxxController.java
+          -xxxController.java
+        +view
+          -xxxView.java
+          -xxxView.java
+    +resource
+      -application.properties
+      +css
+        -xxx.css
+        -xxx.css
+      +fxml
+        -xxx.fxml
+        -xxx.fxml
+      +images
+        -xxx.ico
+        -xxx.png
+      +language
+        -i18n_en.properties
+        -i18n_zh_CN.properties
+      +mapper
+        +xxx
+          -xxx.xml
+          -xxx.xml
+        +xxx
+          -xxx.xml
+          -xxx.xml
+  +test
++target
+```
