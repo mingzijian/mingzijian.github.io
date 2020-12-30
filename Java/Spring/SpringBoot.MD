@@ -3,13 +3,24 @@ Spring Boot
 Spring Boot使您可以轻松地创建独立的、生产级的、基于Spring的应用程序，您可以“just run”。
 
 ## 特性
-### 内置容器
+### 独立程序
+创建独立的Spring应用程序。
+
+### 内嵌容器
 springboot内置了servlet容器，项目可以直接打包成jar形式，使用java -jar命令运行，而不必像以前打包成war包形式放到tomcat下运行。正因为这个机制，结合Jenkins、Docker自动化运维得以实现。
+
+### 简化构建
+提供自定义的“启动器`starter`”依赖项来简化构建配置。
+
 ### 生产准备
 springboot提供的actuator插件提供了大量的生产级特性，可以帮助监控和管理springBoot应用，比如健康检查、审计、统计和HTTP追踪。这在微服务中，可以通过actutor提供的端点与外部应用监控系统进行整合，比如Prometheus、DataDog来进行服务监控。
 
 ### 自动装配
+尽可能地自动配置Spring和第三方库。
 springboot能很方便的使用第三方包，只需做简单的配置即可使用，例如：jdbc、web-mvc等。
+
+### 简化配置
+完全没有代码生成，也不需要XML配置。
 
 - 让编码变得简单
 - 让部署变得简单
@@ -50,4 +61,6 @@ SpringApplication初始化模块，配置一些基本的环境变量、资源、
 自动配置模块，该模块实现了SpringBoot的自动配置
 
 #### 参考
- - https://spring.io/projects/spring-boot
+ - [SpringBoot项目](https://spring.io/projects/spring-boot)
+ - [SpringBoot参考文档](https://docs.spring.io/spring-boot/docs/current/reference/html)
+
