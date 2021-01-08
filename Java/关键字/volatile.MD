@@ -47,3 +47,7 @@ public class Something {
     }
 }
 ```
+
+### 参考
+
+- [Java内存模型之volatile--程晓明](https://www.infoq.cn/article/java-memory-model-4)
