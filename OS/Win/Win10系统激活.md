@@ -27,8 +27,9 @@ slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
 4. **设置**密钥管理服务计算机名
 
 ```shell
-slmgr /skms zh.us.to
+slmgr /skms kms.03k.org
 ```
+**`kms.03k.org` 2021年1月28日可用**
 
 5. **激活**Windows
 
