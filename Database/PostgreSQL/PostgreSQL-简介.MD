@@ -61,3 +61,4 @@ Slogan 是 **"世界上最先进的开源关系型数据库"**。
 ### 参考
 
 - [关于PostgreSQL--官网](https://www.postgresql.org/about/)
+- [PostgreSQL-13.1中文手册---PostgreSQL中文社区](http://www.postgres.cn/docs/13/index.html)
