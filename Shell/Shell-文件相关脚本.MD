@@ -1,5 +1,23 @@
 Shell 文件相关脚本
 ---------------------------
+[TOC]
+
+### 文件夹合并
+#### 脚本
+```shell
+# 将source-folder文件夹的内容同步（合并）到target-folder文件夹下
+rsync -av /source-folder/ /target-folder/
+
+# 检查同步（合并）结果
+ls -l -h /target-folder/
+
+# 移除source-folder文件夹
+rm -rf /source-folder/
+```
+#### 解释
+`rsync`  （remote synchronize）是一个远程数据同步工具，可通过LAN/WAN快速同步多台主机间的文件。
+`-v`  --verbose 详细模式输出。
+`-a`  --archive 归档模式，表示以递归方式传输文件，并保持所有文件属性。
 
 ### 列出当前文件夹下的重复文件
 #### 脚本
