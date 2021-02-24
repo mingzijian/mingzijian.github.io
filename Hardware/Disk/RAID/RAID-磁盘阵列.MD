@@ -11,16 +11,22 @@ RAID （ Redundant Array of Independent Disks ）即独立磁盘冗余阵列，�
 - RAID10
 
 #### RAID0
+ ![RAID0](https://images.gitee.com/uploads/images/2021/0224/133413_51f26fff_536895.png "RAID0.png")
 
 #### RAID1
+ ![RAID1](https://images.gitee.com/uploads/images/2021/0224/133436_7dadcbdd_536895.png "RAID1.png")
 
 #### RAID3
+ ![RAID3](https://images.gitee.com/uploads/images/2021/0224/133504_11f83840_536895.png "RAID3.png")
 
 #### RAID5
+ ![RAID5](https://images.gitee.com/uploads/images/2021/0224/133534_93ac21a3_536895.png "RAID5.png")
 
 #### RAID6
+ ![RAID6](https://images.gitee.com/uploads/images/2021/0224/133549_70292b19_536895.png "RAID6.png")
 
 #### RAID10
+ ![RAID10](https://images.gitee.com/uploads/images/2021/0224/133627_f24e952f_536895.png "RAID10.png")
 
 #### 主流 RAID 等级技术对比
 
@@ -40,6 +46,7 @@ RAID （ Redundant Array of Independent Disks ）即独立磁盘冗余阵列，�
 ##### JBOD (磁盘串)
 JBOD （ Just a Bunch Of Disks ）不是标准的 RAID 等级，它通常用来表示一个没有控制软件提供协调控制的磁盘集合。
 JBOD 将多个物理磁盘串联起来，提供一个巨大的逻辑磁盘。
+ ![JBOD](https://images.gitee.com/uploads/images/2021/0224/133851_cce8cc50_536895.png "JBOD.png")
 
 ### 实现方式
 #### 硬RAID
