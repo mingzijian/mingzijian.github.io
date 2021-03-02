@@ -22,7 +22,11 @@ young gen中的eden区分配满
 - 收集区域
 整个堆
 - 触发条件
-当准备要触发一次young GC时，如果发现统计数据说之前young GC的平均晋升大小比目前old gen剩余的空间大，则不会触发young GC而是转为触发full GC（因为HotSpot VM的GC里，除了CMS的concurrent collection之外，其它能收集old gen的GC都会同时收集整个GC堆，包括young gen，所以不需要事先触发一次单独的young GC）；或者，如果有perm gen的话，要在perm gen分配空间但已经没有足够空间时，也要触发一次full GC；或者System.gc()、heap dump带GC，默认也是触发full GC。
+当准备要触发一次young GC时，如果发现统计数据说之前young GC的平均晋升大小比目前old gen剩余的空间大，
+则不会触发young GC而是转为触发full GC（因为HotSpot VM的GC里，除了CMS的concurrent collection之外，
+其它能收集old gen的GC都会同时收集整个GC堆，包括young gen，所以不需要事先触发一次单独的young GC）；
+或者，如果有perm gen的话，要在perm gen分配空间但已经没有足够空间时，
+强调也要触发一次full GC；或者System.gc()、heap dump带GC，默认也是触发full GC。
 
 ### GC 垃圾收集算法
 
@@ -48,19 +52,22 @@ young gen中的eden区分配满
 
 - 三色标记算法
   <pre>
-1,起初所有对象都是白色。
-2,从根出发扫描所有可达对象，标记为灰色，放入待处理队列。
-3,从队列取出灰色对象，将其引用对象标记为灰色放入队列，自身标记为黑色。
-4,重复 3，直到灰色对象队列为空。此时白色对象即为垃圾，进行回收。
+    1,起初所有对象都是白色。
+    2,从根出发扫描所有可达对象，标记为灰色，放入待处理队列。
+    3,从队列取出灰色对象，将其引用对象标记为灰色放入队列，自身标记为黑色。
+    4,重复 3，直到灰色对象队列为空。此时白色对象即为垃圾，进行回收。
+  </pre>
     -黑色：根对象，或者该对象与它的子对象都被扫描
     -灰色：对象本身被扫描，但还没扫描完该对象中的子对象
     -白色(注意两个含义)：未被扫描对象，扫描完成所有对象之后，最终为白色的为不可达对象，即垃圾对象
-  </pre>
+
   ![三色标记](https://images.gitee.com/uploads/images/2020/0624/183924_a77d5552_536895.gif "三色标记.gif")
- ![Animation_of_tri-color_garbage_collection](https://images.gitee.com/uploads/images/2021/0302/092213_b583c03d_536895.gif "Animation_of_tri-color_garbage_collection.gif")
+
+  ![Animation_of_tri-color_garbage_collection](https://images.gitee.com/uploads/images/2021/0302/092213_b583c03d_536895.gif "Animation_of_tri-color_garbage_collection.gif")
 
   - 多标（浮动垃圾）
-    本该回收的内存，但被标记为存活对象，未回收掉，被称之为“浮动垃圾”。浮动垃圾并不会影响垃圾回收的正确性，只是需等到下一轮垃圾回收才有被清除的可能。
+    本该回收的内存，但被标记为存活对象，未回收掉，被称之为“浮动垃圾”。浮动垃圾并不会影响垃圾回收的正确性，
+只是需等到下一轮垃圾回收才有被清除的可能。
   - 漏标（读写屏障，类比AOP）
     本不该回收的内存，未被标记为存活对象，被直接回收。这直接影响到了应用程序的正确性，是不可接受的。
     - 漏标只有同时满足以下两个条件时才会发生：
@@ -119,7 +126,8 @@ young gen中的eden区分配满
 
 
 ##### Incremental Update + Store Barrier (增量更新+写屏障)
-    Incremental Update 算法判断如果一个白色的对象由一个黑色的对象引用，如三色标记图，D的引用由B-->A,A是目的地址，所以cms 的Incremental Update算法是从目标入手解决的，
+    Incremental Update 算法判断如果一个白色的对象由一个黑色的对象引用，如三色标记图，D的引用由B-->A,A是目的地址，
+所以cms 的Incremental Update算法是从目标入手解决的，
 这是和SATB的第一个区别，发现这种情况时，也是通过write barrier写屏障技术，
 把黑色的对象重新标记为灰色，让collector 重新来扫描，活着通过mod-union table 来标记，CMS 就是这样实现的，
 这是第二个区别，做法不一样，也是上面讲的防止第一种情况发生。
@@ -186,9 +194,6 @@ Azul Systems
 #### C4
 Azul Systems
 分代
-
-
-
 
 
 
