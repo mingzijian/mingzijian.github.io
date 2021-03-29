@@ -2,7 +2,6 @@ TCP (传输控制协议)
 ---------------------------
 传输控制协议（TCP，Transmission Control Protocol）是一种面向连接的、可靠的、基于字节流的传输层通信协议。
 
- ![TCP](https://gitee.com/mingzijian/resources/raw/master/picgo/image-20210329184613503.png)
 
 ### 名称解释
 #### SYN
@@ -24,6 +23,7 @@ TCP (传输控制协议)
 
 ### 报文格式
 
+ ![TCP](https://gitee.com/mingzijian/resources/raw/master/picgo/image-20210329184613503.png)
 
 #### 字段含义
 - 源端口和目的端口字段
