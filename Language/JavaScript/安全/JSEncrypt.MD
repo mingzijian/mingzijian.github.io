@@ -1,0 +1,86 @@
+JSEncrypt
+---------------
+JavaScript RSA加密解决方案。
+
+下载链接：
+http://travistidwell.com/jsencrypt/bin/jsencrypt.js
+http://travistidwell.com/jsencrypt/bin/jsencrypt.min.js
+
+### 使用示例
+```html
+<!doctype html>
+<html>
+  <head>
+    <title>JavaScript RSA Encryption</title>
+    <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="http://travistidwell.com/jsencrypt/bin/jsencrypt.min.js"></script>
+    <script type="text/javascript">
+
+      // Call this code when the page is done loading.
+      $(function() {
+
+        // Run a quick encryption/decryption when they click.
+        $('#testme').click(function() {
+
+          // 使用公钥加密...
+          var encrypt = new JSEncrypt();
+          encrypt.setPublicKey($('#pubkey').val());
+          var encrypted = encrypt.encrypt($('#input').val());
+
+          $('#output').val(encrypted);
+
+          // 使用私钥解密...
+          var decrypt = new JSEncrypt();
+          decrypt.setPrivateKey($('#privkey').val());
+          var uncrypted = decrypt.decrypt(encrypted);
+
+          // 验证下结果
+          if (uncrypted == $('#input').val()) {
+            alert('不错!!!');
+          } else {
+            alert('见鬼...');
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <label for="privkey">私钥:</label><br/>
+    <textarea id="privkey" rows="15" cols="65">-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQDlOJu6TyygqxfWT7eLtGDwajtNFOb9I5XRb6khyfD1Yt3YiCgQ
+WMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76xFxdU6jE0NQ+Z+zEdhUTooNR
+aY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4gwQco1KRMDSmXSMkDwIDAQAB
+AoGAfY9LpnuWK5Bs50UVep5c93SJdUi82u7yMx4iHFMc/Z2hfenfYEzu+57fI4fv
+xTQ//5DbzRR/XKb8ulNv6+CHyPF31xk7YOBfkGI8qjLoq06V+FyBfDSwL8KbLyeH
+m7KUZnLNQbk8yGLzB3iYKkRHlmUanQGaNMIJziWOkN+N9dECQQD0ONYRNZeuM8zd
+8XJTSdcIX4a3gy3GGCJxOzv16XHxD03GW6UNLmfPwenKu+cdrQeaqEixrCejXdAF
+z/7+BSMpAkEA8EaSOeP5Xr3ZrbiKzi6TGMwHMvC7HdJxaBJbVRfApFrE0/mPwmP5
+rN7QwjrMY+0+AbXcm8mRQyQ1+IGEembsdwJBAN6az8Rv7QnD/YBvi52POIlRSSIM
+V7SwWvSK4WSMnGb1ZBbhgdg57DXaspcwHsFV7hByQ5BvMtIduHcT14ECfcECQATe
+aTgjFnqE/lQ22Rk0eGaYO80cc643BXVGafNfd9fcvwBMnk0iGX0XRsOozVt5Azil
+psLBYuApa66NcVHJpCECQQDTjI2AQhFc1yRnCU/YgDnSpJVm1nASoRUnU8Jfm3Oz
+uku7JUXcVpt08DFSceCEX9unCuMcT72rAQlLpdZir876
+-----END RSA PRIVATE KEY-----</textarea><br/>
+    <label for="pubkey">公钥:</label><br/>
+    <textarea id="pubkey" rows="15" cols="65">-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDlOJu6TyygqxfWT7eLtGDwajtN
+FOb9I5XRb6khyfD1Yt3YiCgQWMNW649887VGJiGr/L5i2osbl8C9+WJTeucF+S76
+xFxdU6jE0NQ+Z+zEdhUTooNRaY5nZiu5PgDB0ED/ZKBUSLKL7eibMxZtMlUDHjm4
+gwQco1KRMDSmXSMkDwIDAQAB
+-----END PUBLIC KEY-----</textarea><br/>
+    <label for="input">要加密的文本:</label><br/>
+    <textarea id="input" name="input" type="text" rows=4 cols=70>这是个重要的私密信息</textarea><br/>
+    <input id="testme" type="button" value="验证" /><br/>
+    <label for="output">加密后的文本:</label><br/>
+    <textarea id="output" name="output" type="text" rows=4 cols=70></textarea><br/>
+  </body>
+</html>
+```
+
+### 参考
+- [RSA and ECC in JavaScript --stanford](http://www-cs-students.stanford.edu/~tjw/jsbn/)
+- [jsencrypt --github](https://github.com/travist/jsencrypt)
+- [jsencrypt --travistidwell](http://travistidwell.com/jsencrypt)
+- [Online RSA Key Generator Demo  --travistidwell](http://travistidwell.com/jsencrypt/demo/)
+- [JavaScript RSA Encryption Demo --stanford](http://www-cs-students.stanford.edu/~tjw/jsbn/rsa.html)
+- [JQuery Download](https://jquery.com/download/)
