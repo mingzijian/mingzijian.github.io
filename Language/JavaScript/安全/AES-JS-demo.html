@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>AES-JS Demo</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <script src="./aes-3.1.2.js"></script>
+    <script type="text/javascript">
+    // 一个128位的密钥
+    var key = [ 111, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
+    // 初始化向量
+    var iv = [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,35, 36 ];
+    
+    function encrypt(){
+      var text = $('#input').val();
+      var textBytes = aesjs.utils.utf8.toBytes(text);
+      try {
+        var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
+        var encryptedBytes = aesCbc.encrypt(textBytes);
+        var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+        $('#result').text(encryptedHex);
+      } catch(err) {
+        alert(err);
+      }
+    }
+
+    function decrypt(){
+      // .text()方法只能够获取到textarea的初始化文本值
+      var encryptedHex = $('#result').val();
+      var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+      try {
+        // 密码块链接操作模式保持内部状态，因此必须实例化新实例来解密。
+        var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
+        var decryptedBytes = aesCbc.decrypt(encryptedBytes);
+        var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+        $('#input').val(decryptedText);
+      } catch(err) {
+        alert(err);
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <h1>AES-JS Demo</h1>
+
+    
+    <form>
+      <p>
+        <label for="input">输入</label>
+      </br>
+        <textarea rows="6" cols="50" id="input">TextMustBe16Byte</textarea>
+      </p>
+      <p>
+        <button
+          type="button"
+          onclick="encrypt()"
+        >
+          AES(CBC)加密
+        </button>
+        <button
+          type="button"
+          onclick="decrypt()"
+        >
+          AES(CBC)解密
+        </button>
+      </p>
+      <p>
+        <label for="result">结果</label>
+      </br>
+        <textarea rows="6" cols="50" id="result"></textarea>
+      </p>
+    </form>
+  </body>
+</html>

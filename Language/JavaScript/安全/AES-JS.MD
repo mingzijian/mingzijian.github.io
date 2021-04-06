@@ -10,7 +10,12 @@ AES分组密码算法和所有常见操作模式（CBC、CFB、CTR、ECB和OFB�
 
 ### 常用加密模式
 #### CBC （推荐）
+
 密码块链接 Cipher-Block Chaining (recommended)
+先将明文切分成若干小段，然后每一小段与初始块或者上一段的密文段进行异或运算后，再与密钥进行加密。
+
+ ![CBC](https://gitee.com/mingzijian/resources/raw/master/picgo/image-20210406163042149.png)
+
 ```javascript
 // An example 128-bit key
 var key = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
@@ -24,6 +29,7 @@ var textBytes = aesjs.utils.utf8.toBytes(text);
 
 var aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
 var encryptedBytes = aesCbc.encrypt(textBytes);
+
 
 // To print or store the binary data, you may convert it to hex
 var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
@@ -47,6 +53,9 @@ console.log(decryptedText);
 
 #### ECB (安全性较差)
 电码本 Electronic Codebook
+将整个明文分成若干段相同的小段，然后对每一小段进行加密。
+
+ ![ECB](https://gitee.com/mingzijian/resources/raw/master/picgo/image-20210406162408159.png)
 
 ECB模式作为一种基本工作模式，具有操作简单，易于实现的特点。同时由于其分组的独立性，利于实现并行处理，并且能很好地防止误差传播。
 另一方面由于所有分组的加密方式一致，明文中的重复内容会在密文中有所体现，因此难以抵抗统计分析攻击。
@@ -96,3 +105,4 @@ console.log(decryptedText);
 
 ### 参考
  - [aes-js --github](https://github.com/ricmoo/aes-js)
+ - [aes-js --npmjs](https://www.npmjs.com/package/aes-js)
