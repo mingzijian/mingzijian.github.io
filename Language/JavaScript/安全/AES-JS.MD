@@ -100,8 +100,114 @@ console.log(decryptedText);
 ### 使用示例
 在浏览器网页中使用aes-js
 ```html
-<script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>AES-JS Demo</title>
+    <script src="./jquery-3.6.0.min.js"></script>
+    <script src="./aes-3.1.2.js"></script>
+    <script type="text/javascript">
+    // 一个128位的密钥
+    var key = [ 111, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
+    // 初始化向量
+    var iv = [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,35, 36 ];
+    var aesEcb;
+    var aesCbc;
+    function encrypt(mode){
+      var text = $('#input').val();
+      var textBytes = aesjs.utils.utf8.toBytes(text);
+      try {
+        var aes = getAes(mode);
+        var encryptedBytes = aes.encrypt(textBytes);
+        var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
+        $('#result').val(encryptedHex);
+      } catch(err) {
+        alert(err);
+      }
+    }
+
+    function decrypt(mode){
+      // .text()方法只能够获取到textarea的初始化文本值
+      var encryptedHex = $('#result').val();
+      var encryptedBytes = aesjs.utils.hex.toBytes(encryptedHex);
+      try {
+        var aes = getAes(mode);
+        var decryptedBytes = aes.decrypt(encryptedBytes);
+        var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+        $('#input').val(decryptedText);
+      } catch(err) {
+        alert(err);
+      }
+    }
+
+    function getAes(mode){
+      switch (mode){
+        case 'cbc':
+          // 密码块链接操作模式保持内部状态，因此必须实例化新实例来解密。
+          aesCbc = new aesjs.ModeOfOperation.cbc(key, iv);
+          return aesCbc;
+        case 'ebc':
+          if(!aesEcb){
+            aesEcb = new aesjs.ModeOfOperation.ecb(key);
+          }
+          return aesEcb;
+        default:
+            throw new Error('未定义的 AES MODE:'+mode);
+            break;
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <h1>AES-JS Demo</h1>
+
+    
+    <form>
+      <p>
+        <label for="input">输入</label>
+      </br>
+        <textarea rows="6" cols="50" id="input">TextMustBe16Byte</textarea>
+      </p>
+      <p>
+        <button
+          type="button"
+          onclick="encrypt('cbc')"
+        >
+          AES(CBC)加密
+        </button>
+        <button
+          type="button"
+          onclick="decrypt('cbc')"
+        >
+          AES(CBC)解密
+        </button>
+      </p>
+      <p>
+        <button
+          type="button"
+          onclick="encrypt('ebc')"
+        >
+          AES(EBC)加密
+        </button>
+        <button
+          type="button"
+          onclick="decrypt('ebc')"
+        >
+          AES(EBC)解密
+        </button>
+      </p>
+      <p>
+        <label for="result">结果</label>
+      </br>
+        <textarea rows="6" cols="50" id="result"></textarea>
+      </p>
+    </form>
+
+</html>
 ```
+
+
 
 ### 参考
  - [aes-js --github](https://github.com/ricmoo/aes-js)
