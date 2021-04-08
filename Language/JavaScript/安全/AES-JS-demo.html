@@ -6,10 +6,10 @@
     <script src="./jquery-3.6.0.min.js"></script>
     <script src="./aes-3.1.2.js"></script>
     <script type="text/javascript">
-    // 一个128位的密钥
-    var key = [ 111, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
+    // 一个128位的密钥 (5*3+1)*8=128
+    var key = aesjs.utils.utf8.toBytes('每中文3字节');
     // 初始化向量
-    var iv = [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34,35, 36 ];
+    var iv = aesjs.utils.utf8.toBytes('0123456789abcdef');
     var aesEcb;
     var aesCbc;
     function encrypt(mode){
