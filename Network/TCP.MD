@@ -23,7 +23,7 @@ TCP (传输控制协议)
 
 ### 报文格式
 
- ![TCP](https://gitee.com/mingzijian/resources/raw/master/picgo/image-20210329184613503.png)
+ ![TCP](https://images.gitee.com/uploads/images/2021/0419/135653_6f27a406_536895.png "TCP.png")
 
 #### 字段含义
 - 源端口和目的端口字段
