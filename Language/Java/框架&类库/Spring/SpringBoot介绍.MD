@@ -5,6 +5,31 @@ Spring Boot使您可以轻松地创建独立的、生产级的、基于Spring的
 ## 特性
 ### 独立程序
 创建独立的Spring应用程序。
+#### 启动失败提示
+如果应用程序无法启动，注册的FailureAnalyzer将有机会提供一条专门的错误消息和解决问题的具体操作。
+#### 延迟初始化
+
+#### 自定义横幅（Banner）
+
+#### 自定义SpringApplication
+
+#### 流式调用的构建器 API
+
+#### 可用性
+
+#### 事件与监听
+
+#### WEB环境
+
+#### 访问应用程序参数
+
+####  ApplicationRunner与 CommandLineRunner
+
+#### 程序退出
+
+#### 管理员功能
+
+#### 程序启动跟踪
 
 ### 内嵌容器
 springboot内置了servlet容器，项目可以直接打包成jar形式，使用java -jar命令运行，而不必像以前打包成war包形式放到tomcat下运行。正因为这个机制，结合Jenkins、Docker自动化运维得以实现。
