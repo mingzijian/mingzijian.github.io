@@ -167,6 +167,5 @@ RELEASE-NOTES  发行说明
 
 
 #### 参考
- - [apache tomcat]https://tomcat.apache.org
- - [Tomcat 组件简介
+ - [apache tomcat](https://tomcat.apache.org)
  - [Tomcat 启动](https://www.cnblogs.com/fantiantian/p/3638016.html)
