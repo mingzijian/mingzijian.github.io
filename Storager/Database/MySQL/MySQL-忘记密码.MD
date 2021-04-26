@@ -4,6 +4,12 @@ MySQL 忘记密码
 ### 忘记ROOT账户密码
 1. 跳过授权表，编辑`/etc/my.cnf`配置文件，插入一行`skip-grant-tables`
 `vim /etc/my.cnf`
+
+其他可能的配置文件：
+/etc/mysql/my.cnf
+/etc/mysql/conf.d/mysql.cnf
+/etc/mysql/conf.d/docker.cnf
+
 ```
 [mysqld]
 #跳过授权表

@@ -1,25 +1,72 @@
-Docker 操作  容器迁移
+Docker 操作  容器
 --------------------------------
 
 ### 相关概念
 #### 镜像
 一个特殊的文件系统，只读
+
+搜索镜像
+`docker search xxx`
+
+拉取镜像（远端到本地）
+`docker pull xxx` 
+
+镜像列表
+`docker images`
+
+删除镜像
+`docker rmi xxx`
+
+构建镜像
+`docker build`
+
+镜像标签
+`docker tag`
+
+
 #### 容器
 镜像的实体，可读可写
+
+运行镜像即启动对应容器
+`docker run xxx`
+
+查看容器列表
+`docker ps -a`
+
+停止容器
+`docker stop <容器ID>`
+
+
+启动（一个已停止的）容器
+`docker start <容器ID>`
+
+重启容器
+`docker restart <容器ID>`
+
+删除容器
+`docker rm -f <容器ID>`
+
+修剪容器(清理所有处于终止状态的容器)
+`docker container prune`
+
+进入容器
+`docker attach` 退出容器时容器会停止
+`docker exec` 退出容器时容器不停止
+
 ### 相关命令
-- export
+- export （导出）
 docker export :将文件系统作为一个tar归档文件导出到STDOUT。
 `docker export [OPTIONS] CONTAINER`
 
-- import
+- import （导入）
 docker import : 从归档文件中创建镜像。
 `docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]`
 
-- save
+- save （保存）
 docker save : 将指定镜像保存成 tar 归档文件。
 `docker save [OPTIONS] IMAGE [IMAGE...]`
 
-- load
+- load （载入）
 docker load : 导入使用 docker save 命令导出的镜像。
 `docker load [OPTIONS]`
 

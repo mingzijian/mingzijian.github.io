@@ -20,6 +20,10 @@ Docker应用-搭建MySQL主从
    $ mysql --help | grep Distrib
    mysql  Ver 14.14 Distrib 5.7.21, for Linux (x86_64) using  EditLine wrapper
    ```
+   ```shell
+   $ mysql --version
+   mysql  Ver 14.14 Distrib 5.7.21, for Linux (x86_64) using  EditLine wrapper
+   ```
 
 ## 开始搭建
  - 拉取 MySQL 镜像 (注意版本)
@@ -177,6 +181,7 @@ Docker应用-搭建MySQL主从
         1 row in set (0.04 sec)
 
      ``
+     ```
 
 
 #### 参考
