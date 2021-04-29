@@ -76,9 +76,9 @@ Istio 在希腊语中是 “sail” 的意思，它（ιστίο）延用了 Kub
 最后说明一下：Istio 并不是首字母缩写，但如果一定要说它代表着什么，也许会是 “I Secure, Then I Observe”（我保护，我观察），或者 "I’m Sexy To Infrastructure Operators."（我对基础设施运营商富有吸引力）。
 
 ### 参考
- - [官网](https://istio.io/)
+ - [官网](https://istio.io)
  - [Istio是啥](http://www.uml.org.cn/wfw/201909063.asp)
- - [what-is-istio](https://istio.io/latest/zh/docs/concepts/what-is-istio/)
+ - [what-is-istio](https://istio.io/latest/zh/docs/concepts/what-is-istio)
  - [Istio1.4中文文档 --书栈](https://www.bookstack.cn/read/istio-1.4-zh/575f2c1cabf14274.md)
- - [Istio中文文档 --官网](https://istio.io/latest/zh/docs
+ - [Istio中文文档 --官网](https://istio.io/latest/zh/docs)
  - [Istio项目名称的由来](https://www.amd5.cn/atang_4803.html)
