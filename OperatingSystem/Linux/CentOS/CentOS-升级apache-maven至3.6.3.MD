@@ -10,9 +10,11 @@ Maven home: /usr/share/apache-maven
 
 cd /usr/local
 ### 下载新版本
-$ wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+$ wget https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
 
 [更多版本](http://maven.apache.org/download.cgi)
+
+
 
 ### 解压
 $ tar -zxvf apache-maven-3.6.3-bin.tar.gz
@@ -28,4 +30,17 @@ $ mvn -version
 Apache Maven 3.6.3 ................
 Maven home: /usr/share/apache-maven
 ...
+```
+
+### 配置MAVEN_HOME (新安装需要配置)
+```
+vim /etc/profile
+
+export MAVEN_HOME=/usr/share/apache-maven
+export PATH=${PATH}:${MAVEN_HOME}/bin
+
+source /etc/profile
+
+mvn -version
+
 ```

@@ -31,20 +31,23 @@ OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
 ```
 
 ### 通过二进制包安装 (以jdk-8为例)
+
+[【推荐】华为云JDK镜像](https://mirrors.huaweicloud.com/java/jdk/)
 [Java SE Downloads](https://www.oracle.com/java/technologies/javase-downloads.html)
 [javase-jdk8-downloads](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
 
 
 ```shell
-# 下载（具体下载链接需要用户登录Oracle验证身份获取授权参数后得到）
-> wget https://download.oracle.com/otn/java/jdk/8u291-b10/xxxxxx -O jdk-8u291-linux-x64.tar.gz
+# 下载
+> wget https://mirrors.huaweicloud.com/java/jdk/8u181-b13/jdk-8u181-linux-x64.tar.gz
 
 # 解压（建议目录/usr/local/）
-> tar -zxvf jdk-8u291-linux-x64.tar.gz -C /usr/local/
+> tar -zxvf jdk-8u181-linux-x64.tar.gz
+> mv jdk1.8.0_181/ /usr/local/
 
 # 配置环境变量（建议备份）
 > cp /etc/profile /etc/profile.back;vim /etc/profile
-export JAVA_HOME=/usr/local/jdk1.8.0_291
+export JAVA_HOME=/usr/local/jdk1.8.0_181
 export JRE_HOME=${JAVA_HOME}
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
@@ -54,7 +57,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 # 验证
 > java -version
-openjdk version "1.8.0_292"
-OpenJDK Runtime Environment (build 1.8.0_292-b10)
-OpenJDK 64-Bit Server VM (build 25.292-b10, mixed mode)
+java version "1.8.0_181"
+Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 ```
