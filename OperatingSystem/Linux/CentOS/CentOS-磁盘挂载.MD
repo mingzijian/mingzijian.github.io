@@ -19,7 +19,8 @@ mount /dev/hda1 /mnt
 下
 
 #### 服务端【192.168.20.100】（来源）
-
+NFS : 网络文件系统(Network File System)
+rpcbind : 通用地址和RPC程序号码之间的映射器
 
 ```shell
 # 安装服务依赖
@@ -80,4 +81,5 @@ vim /etc/fstab
 
 ### 参考
 
- -[Linux mount命令](https://www.runoob.com/linux/linux-comm-mount.html)
+ - [Linux mount命令](https://www.runoob.com/linux/linux-comm-mount.html)
+ - [rpcbind说明](http://linux.51yip.com/search/rpcbind)
