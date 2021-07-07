@@ -1,0 +1,79 @@
+pipeline {
+    agent any
+
+    environment {
+      APP_NAME = "outfit-admin"
+      CODE_HOME = "/home/GIT/outfit-typhoon"
+      JAR_HOME = "/usr/local/springboot/outfit-admin"
+    }
+
+    tools {
+        // 
+        maven "maven3"
+        jdk "jdk8"
+    }
+
+    stages {
+        
+        stage('Pull') {
+            steps {
+                // 
+                sh '''
+                cd ${CODE_HOME}
+                git checkout outfit-admin-test
+                git pull
+                '''
+            }
+
+        }
+        
+        stage('Build') {
+            steps {
+                // 
+                sh '''
+                cd ${CODE_HOME}
+                mvn clean package -Ptest -Dmaven.test.skip
+                '''
+            }
+
+        }
+        
+        stage('Upload') {
+            steps {
+               sh '''
+                ssh root@192.168.20.10 "
+                rm -rf ${JAR_HOME}/*.jar
+                "
+                scp ${CODE_HOME}/target/*.jar root@192.168.20.10:${JAR_HOME}/
+                ssh root@192.168.20.10 "cd ${JAR_HOME}
+                ls -l -h
+                "
+                '''
+            }
+
+        }
+        
+        stage('Restart') {
+            steps {
+                // 
+                sh '''
+                ssh root@192.168.20.10 "cd ${JAR_HOME}
+                ./shutdown.sh
+                ./startup.sh
+                "
+                '''
+            }
+
+        }
+    }
+    
+    post {
+        success {
+            echo "build success [${APP_NAME}] 🤙🏽🤙"
+        }
+        failure {
+            echo "build failure [${APP_NAME}]"
+        }
+    }
+    
+}
