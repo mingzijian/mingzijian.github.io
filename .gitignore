@@ -10,3 +10,5 @@ ignore-*/
 .mvn/
 mvnw
 mvnw.cmd
+.DS_Store 
+*/.DS_Store
