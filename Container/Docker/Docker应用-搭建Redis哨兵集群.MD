@@ -138,6 +138,7 @@ Docker应用-搭建Redis哨兵集群
 
 
  - 启动一‘主’两‘从’三‘哨兵’共6个容器 （ Redis 服务节点容器内部端口：6379 ；Redis 哨兵节点容器内部端口：26379 ）
+
     ```shell
     # 启动容器 redis-server-6379 主 172.17.0.4
     $ docker run -p 6379:6379 -v /data/redis/redis-server-6379-data/:/data --name redis-server-6379 -d redis:4.0 redis-server /data/redis.conf
@@ -156,7 +157,6 @@ Docker应用-搭建Redis哨兵集群
 
     # 启动容器 redis-sentinel-26381 哨兵3 172.17.0.9
     $ docker run -p 26381:26379 -v /data/redis/redis-sentinel-26381-data/:/data --name redis-sentinel-26381 -d redis:4.0 redis-sentinel /data/redis-sentinel.conf
-    ```
 
 
     # 6个 redis 容器已启动
@@ -179,4 +179,4 @@ Docker应用-搭建Redis哨兵集群
     ```
 
 #### 参考
- - https://www.cnblogs.com/hutao722/p/9644620.html
+ - [构建Redis哨兵集群](https://www.cnblogs.com/hutao722/p/9644620.html)
