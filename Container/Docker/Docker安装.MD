@@ -1,5 +1,4 @@
-Docker 安装
-----------------------------------------------------------
+[TOC]
 
 推荐使用[podman](https://podman.io/)替代docker
 
@@ -135,9 +134,8 @@ docker-compose version 1.29.1, build c34c88b2
 
 
 ### 在 Windows 上安装
-Get Docker Desktop for Windows
-https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe
+[Get Docker Desktop for Windows](https://desktop.docker.com/win/stable/Docker%20Desktop%20Installer.exe)
 
 ### 在 Mac 上安装
-Get Docker Desktop for Mac
-https://desktop.docker.com/mac/stable/Docker.dmg
+[Get Docker Desktop for Mac](https://desktop.docker.com/mac/stable/Docker.dmg)
+
