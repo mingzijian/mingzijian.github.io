@@ -33,6 +33,7 @@ Spring 事务
 支持当前事务的情况：
 
  - PROPAGATION_REQUIRED：
+
  	如果当前存在事务，则加入该事务；如果当前没有事务，则创建一个新的事务。
 
  - PROPAGATION_SUPPORTS： 
@@ -57,4 +58,38 @@ Spring 事务
  - PROPAGATION_NESTED：
 	 如果当前存在事务，则创建一个事务作为当前事务的嵌套事务来运行；如果当前没有事务，则该取值等价于PROPAGATION_REQUIRED。
 
- 
+#### 事务传播原理
+
+Spring AOP + ThreadLocal + rollbackFor
+
+1，Spring AOP 感知 @Transaction 注解，判断开启事务并注入目标方法
+
+2，将当前事务属性存入 ThreadLocal
+
+3，出现异常时匹配 rollbackFor，从 ThreadLocal 取出事务执行回滚
+
+#### 事务传播不生效情况（加了@Transaction 注解但事务回滚不符合预期）
+
+##### 1，事务方法未被 Spring AOP 感知
+
+​		 案例：同一个类 `ClassA` 中的方法 `nonTransactionMethod()` 调用 `transactionMethod()`
+
+​		 原因：虽然 `transactionMethod()` 加了注解，但是 `nonTransactionMethod()` 没加注解，且同一个类中的方法调用不使用 Spring 代理不会触发 AOP。即 Spring 不会将事务注入 `transactionMethod()`
+
+​		 方案：
+
+| 方案  | 说明                                                         | 场景分析                                        |
+| ----- | ------------------------------------------------------------ | ----------------------------------------------- |
+| 方案1 | 将 `nonTransactionMethod()` 也加上事务 `@Transaction` 注解   | 要求：业务上允许`nonTransactionMethod()` 加事务 |
+| 方案2 | 将 `transactionMethod()`  挪至另外一个类 `ClassB` 中, 将 `ClassB classB` 注入 `classA` ，通过 `classB.transactionMethod()` 调用，触发 AOP 注入事务 | 代码挪动成本较高，评估业务模型是否合理          |
+| 方案3 | 将`ClassA classA` 注入自身 `classA`  ，通过 `classA.transactionMethod()` 调用，触发 AOP 注入事务 | 骚操作，低成本                                  |
+
+   
+
+##### 2，事务方法不在同一个 Thread
+
+异步调用的方法不在同一个 Thread 中，无法通过 ThreadLocal 共享信息，即无法传递事务。考虑使用分布式事务解决方案。
+
+##### 3，事务方法异常未命中 rollbackFor
+
+ Spring 默认的触发事务回滚异常类型为 RuntimeException 。使用 `@Transaction` 注解注入事务时，建议指定 rollbackFor 。
