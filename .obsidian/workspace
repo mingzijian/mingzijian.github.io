@@ -1,0 +1,135 @@
+{
+  "main": {
+    "id": "501bb996fef09d9a",
+    "type": "split",
+    "children": [
+      {
+        "id": "d23eb2adc89c0219",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "Tool/版本控制工具.MD",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "3fb511cda53a3a4c",
+    "type": "split",
+    "children": [
+      {
+        "id": "9e8e2fe37bdf7134",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "06433a668ed5cb61",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "fd95fa8521c6e1fc",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "18654bc53af75d86",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bec3ca8df5042c30",
+    "type": "split",
+    "children": [
+      {
+        "id": "b91f452571e2606f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "788aee58c269d6b5",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Tool/版本控制工具.MD",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ecca93ae9e39a7c3",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Tool/版本控制工具.MD",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "92c41cde721a54df",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "70db75b78fbf9295",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Tool/版本控制工具.MD"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "d23eb2adc89c0219",
+  "lastOpenFiles": [
+    "BlockChain/PoW-PoS.MD"
+  ]
+}
