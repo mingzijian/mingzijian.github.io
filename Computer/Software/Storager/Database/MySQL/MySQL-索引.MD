@@ -47,11 +47,37 @@ TABLE1表中FIELD1和FIELD2上的索引将不被使用。
 #### MyISAM 
 ![非聚簇索引-PK](https://images.gitee.com/uploads/images/2020/0730/170039_da21321b_536895.png "非聚簇索引-PK.png")
 ![非聚簇索引-SK](https://images.gitee.com/uploads/images/2020/0730/164916_1286aa51_536895.png "非聚簇索引-SK.png")
+
 #### InnoDB
 ![聚簇索引-PK](https://images.gitee.com/uploads/images/2020/0730/164931_462c2606_536895.png "聚簇索引-PK.png")
 ![聚簇索引-SK](https://images.gitee.com/uploads/images/2020/0730/164945_be04fae1_536895.png "聚簇索引-SK.png")
 
+
+
+### 索引下推
+
+```sql
+mysql> select * from tuser where name like '张 %' and age=10 and ismale=1;
+```
+
+#### 无索引下推
+
+无索引下推， InnoDB 并不会去看 (name,age) 索引内部 age 的值。
+
+回表4次
+
+![无索引下推](https://gitee.com/mingzijian/resources/raw/master/picgo/2024-03/image-20240325221319754.png)
+
+#### 有索引下推
+
+InnoDB 在 (name,age) 索引内部就判断了 age 是否等于 10，对于不等于 10 的记录，直接判断并跳过。
+
+回表2次
+
+![有索引下推](https://gitee.com/mingzijian/resources/raw/master/picgo/2024-03/image-20240325221428915.png)
+
 ### 索引的优缺点
+
 #### 索引的优点
  - 可以支持行级锁(InnoDB)
  - 可以将随机IO变为顺序IO,提升IO效率

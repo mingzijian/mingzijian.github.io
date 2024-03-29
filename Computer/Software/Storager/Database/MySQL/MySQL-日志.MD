@@ -32,6 +32,8 @@ binlog的三种格式：STATEMENT、ROW、MIXED 。
  ```sql
  # 查看binlog相关设置
  show variables like "%log_bin%";
+ 
+ show variables like "%binlog_format%";
  ```
 在`MySQL5.7.7`之前，默认的格式是`STATEMENT`，`MySQL5.7.7`之后，默认值是`ROW`。
 日志格式通过`binlog-format`指定。
@@ -80,6 +82,20 @@ binlog同步参数。
 	用于主从复制。从节点读主节点的bin log，检测到ChangeData后先写入relay log，再从relay log中解析重放SQL。
 #### Innodb日志(redo log , undo log)
 ##### redo log
+
+```sql
+# innodb 日志文件 相关配置
+show variables like "%innodb_log_file%";
+>
+# 单个日志文件大小
+innodb_log_file_size      1572864000
+# 日志文件数量
+innodb_log_files_in_group 2
+
+```
+
+![image-20240325210048467](https://gitee.com/mingzijian/resources/raw/master/picgo/2024-03/image-20240325210048467.png)
+
    记录做了哪些变更，用于恢复。
    一般是物理日志，记录的是物理页的修改。
    同一个事务中，可能会有多次记录，最后一个提交的事务记录会覆盖所有未提交的事务记录。
@@ -92,9 +108,9 @@ binlog同步参数。
 
 | 比较     | redo log                                                     | binlog                                                       |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 文件大小 | `redo log `的大小是固定的。                                  | `binlog `可通过配置参数 `max_binlog_size `设置每个` binlog `文件的大小。 |
-| 实现方式 | `redo log `是 `InnoDB `引擎层实现的，并不是所有引擎都有。    | `binlog `是 `Server` 层实现的，所有引擎都可以使用 `binlog `日志 |
-| 记录方式 | redo log 采用循环写的方式记录，当写到结尾时，会回到开头循环写日志。 | binlog通过追加的方式记录，当文件大小大于给定值后，后续的日志会记录到新的文件上 |
+| 文件大小 | `redo log `的大小是**固定**的。                              | `binlog `可通过**配置**参数 `max_binlog_size `设置每个` binlog `文件的大小。 |
+| 实现方式 | `redo log `是 **`InnoDB `引擎层**实现的，并不是所有引擎都有。 | `binlog `是 **`Server` 层**实现的，所有引擎都可以使用 `binlog `日志 |
+| 记录方式 | redo log 采用**循环写**的方式记录，当写到结尾时，会回到开头循环写日志。 | binlog通过**追加**的方式记录，当文件大小大于给定值后，后续的日志会记录到新的文件上 |
 | 适用场景 | `redo log `适用于崩溃恢复(crash-safe)                        | `binlog `适用于主从复制和数据恢复                            |
 
 

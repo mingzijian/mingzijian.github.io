@@ -1,7 +1,3 @@
-GC
-
-----
-
 ### GC 概念
 垃圾收集 Garbage Collection 通常被称为“GC”
 
@@ -55,7 +51,16 @@ young gen中的eden区分配满
   <pre>
   这个算法是物理和逻辑上将内存堆划分年轻代，老年代，根据不同代中的对象清除时候使用什么算法来提出的一种算法策略
   </pre>
-![image-20240325170811351](https://gitee.com/mingzijian/resources/raw/master/picgo/2024-03/image-20240325170811351.png)
+**不同代使用不同算法：**
+
+年轻代对象相对活跃，使用节约时间的复制算法
+> 复制算法：Eden → S0   ；Eden+S0 → S1   ；Eden+S1 → S0 
+
+老年代对象相对稳定，使用节约空间的标记整理算法
+> 标记整理算法：Young  →  Old
+
+![image-20240325171657298](https://gitee.com/mingzijian/resources/raw/master/picgo/2024-03/image-20240325171657298.png)
+
 
 #### 三色标记算法
   <pre>
@@ -94,25 +99,36 @@ young gen中的eden区分配满
 
 ####  Serial
 
+复制算法
+
 ![Serial](https://images.gitee.com/uploads/images/2020/0624/135638_29677cda_536895.png "Serial.png")
 
 ####   Serial Old
 
-
+标记整理算法
 
 ####  ParNew
-![ParNew](https://images.gitee.com/uploads/images/2020/0624/141016_6e3be987_536895.png "ParNew.png")
 
+-XX:+UseParNewGC
+
+复制算法
+
+![ParNew](https://images.gitee.com/uploads/images/2020/0624/141016_6e3be987_536895.png "ParNew.png")
 
 #### Parallel Old
 
+-XX:+UseParallelOldGC
 
+标记整理算法
 
 ####  Parallel Scavenge
 
-
+-XX:+UseParallelGC
 
 #### CMS
+
+Concurrent Mark Sweep 并发标记清除
+
     1）初始标记(STW)
     
     2）并发标记
@@ -127,7 +143,14 @@ young gen中的eden区分配满
 并发标记
 ![并发标记](https://images.gitee.com/uploads/images/2020/0624/140432_022a15fe_536895.png "并发标记.png")
 
-三色标记
+##### 三色标记
+
+| 颜色 | 描述                                                         |
+| ---- | ------------------------------------------------------------ |
+| 白   | 初始颜色，尚未被垃圾收集器标记，生死未卜的猫。               |
+| 黑   | GC Root 可达，被垃圾收集器标记为存活。黑色对象及其所有可达对象都被认为是存活的。 |
+| 灰   | 灰色对象肯定是存活的，但是它的一些子对象可能还是白色的，需要进一步标记。 |
+
 ![三色标记](https://images.gitee.com/uploads/images/2020/0624/163629_9ec7bc2e_536895.png "三色标记.png")
 
 
@@ -139,8 +162,44 @@ young gen中的eden区分配满
 把黑色的对象重新标记为灰色，让`collector`重新来扫描，活着通过`mod-union table`来标记，CMS 就是这样实现的，
 这是第二个区别，做法不一样，也是上面讲的防止第一种情况发生。
 
-
 ####  G1
+
+G1 （Garbage-First） 垃圾优先
+
+##### 发展
+
+2004 论文发布
+
+2009 JDK6u14 体验
+
+2012 JDK7u4 官方支持
+
+2017 JDK9 默认 G1（CMS废弃）
+
+##### 相关 JVM 参数
+
+`-XX:+UseG1GC` （使用G1垃圾回收器，JDK9以上为默认）
+`-XX:G1HeapRegionSize=8M` （设置单个Region的大小，这里设置为8M，可以推算出分区个数 ）
+`-XX:MaxGCPauseMillis=200` （设置最大暂停时间，默认为200ms）
+`-XX:InitiatingHeapOccupancyPercent=20` （堆内存使用占比参数，默认45）
+
+
+
+##### G1的垃圾回收阶段主要分为三个阶段
+
+youngCollection 是对新生代的垃圾回收。
+youngCollection+Concurrent Mark 对新生代的垃圾回收，同时执行一些并发的标记。
+MixedCollection 混合的垃圾回收。
+
+
+
+##### 并发标记起始时间的调整
+
+并发标记必须在堆空间占满前完成，否则退化为 FullGC，垃圾回收速度跟不上垃圾产生速度会退化为FullGC。
+为了尽可能的避免 FullGC，可以设置 `-XX:InitiatingHeapOccupancyPercent`参数（堆内存使用占比参数），达到这个值，将会进行并发标记，然后进行 Mixed GC。
+在 JDK 9 可以自动进行动态调整
+进行数据采样并动态调整，尽可能的早点进行并发标记，保留一个安全的空档空间，确保堆内存足够，避免Full GC。
+
     1、初始标记(STW)
     2、并发标记
     3、最终标记(STW)
@@ -160,6 +219,15 @@ young gen中的eden区分配满
 如果我把`b = null`,那么`d`就是垃圾了， `SATB`算法也还是会把`D`最终标记为黑色，导致`D`在本轮`gc`不能回收，成了`浮动垃圾`。
 
 ####  ZGC
+
+JDK11引入实验特性
+
+JDK15稳定正式特定
+
+##### 关键技术
+1. **染色指针**：将垃圾回收的元数据存储在指针的高位中，这样可以在**不访问对象头**的情况下获取对象的垃圾回收状态。
+2. **内存多重映射**：通过不同的虚拟内存视图来管理内存，这允许它在**不停止应用**程序的情况下移动对象。
+
 ##### 支持JDK版本
 JDK11及之后的版本
 
@@ -185,13 +253,27 @@ colored pointers
 读屏障（Load Barrier）
 当读取成员变量时，一律记录下来
 
-
 ####  Shenandoah
+
+-XX:+UseShenandoahGC
+
+首次出现在 JDK 12 中
+
 Red Hat
 并发GC
 目前不分代
 
 #### Epsilon
+
+-XX:+UseEpsilonGC
+
+JDK 11  引入
+
+Epsilon是一个“无操作”（No-Op）垃圾回收器，它不执行任何实际的垃圾回收工作。
+
+主要用于测试和基准测试，特别是在性能测试中，可以帮助排除GC引起的性能假象。
+
+由于不执行垃圾回收，Epsilon GC的停顿时间是零。但是，一旦堆内存用尽，JVM将会因为内存溢出（OOM）而退出。
 
 #### Pauseless
 Azul Systems
@@ -199,8 +281,13 @@ Azul Systems
 不分代
 
 #### C4
+
+Continuously Concurrent Compacting Collector 连续并发压缩收集器
+
 Azul Systems
 分代
+
+C4 GC是一个研究性质的项目，它可能包含一些实验性的技术和算法，生产环境慎用。
 
 
 
@@ -213,7 +300,7 @@ Azul Systems
  - [ZGC wiki](https://wiki.openjdk.java.net/display/zgc/Main)
  - [Major GC与Full GC的区别及触发条件](https://www.zhihu.com/question/41922036/answer/93079526)
 
-
+- [jvm G1 无法触发mixed gc (InitiatingHeapOccupancyPercent之坑）](https://www.jianshu.com/p/62aa6d77c8ca)
 
 
 

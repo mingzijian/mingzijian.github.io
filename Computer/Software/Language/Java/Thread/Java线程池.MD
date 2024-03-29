@@ -68,7 +68,7 @@ Java 线程池
              * Creates a {@code CallerRunsPolicy}.
              */
          public CallerRunsPolicy() { }
-   
+     
             /**
              * Executes task r in the caller's thread, unless the executor
              * has been shut down, in which case the task is discarded.
@@ -129,7 +129,7 @@ Java 线程池
              * Creates a {@code DiscardPolicy}.
           */
             public DiscardPolicy() { }
-   
+     
             /**
              * Does nothing, which has the effect of discarding task r.
              *
@@ -307,8 +307,26 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 
 ```
 
-
 #### 使用场景
+
+
+
+## ForkJoinPool
+
+`ForkJoinPool` 是 Java 7 中引入的一个高级并发框架，它是 `java.util.concurrent` 包的一部分。`ForkJoinPool` 设计用于高效地处理那些可以分解为较小任务的问题，特别是那些可以通过分而治之（Divide and Conquer）策略来解决的问题。它特别适合于利用多核处理器的并行计算。
+
+### 核心概念
+
+- **工作窃取（Work-stealing）**：`ForkJoinPool` 使用工作窃取算法来平衡负载。当一个线程完成其任务后，它会尝试从其他线程的任务队列中窃取任务，这样可以提高资源利用率并减少线程空闲时间。
+- **任务分解**：`ForkJoinPool` 鼓励将大任务分解为小任务，并通过 `fork` 操作并行执行这些小任务。当小任务完成时，它们的结果可以通过 `join` 操作合并。
+
+### 注意事项
+
+- `ForkJoinPool` 不应该用于 I/O 密集型任务，因为它是**为了最大化 CPU 密集型任务的并行执行而设计**的。
+- 当任务分解产生的子任务数量过多时，可能会降低性能，因为任务切换和管理开销会增加。
+- 使用 `ForkJoinPool` 时，应该避免阻塞操作，因为这会降低并行执行的效率。
+
+
 
 ### 合适的线程数
 通用公式：CPU 核心数 * (1+ IO 耗时/CPU 耗时)
