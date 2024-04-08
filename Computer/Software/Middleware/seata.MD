@@ -16,26 +16,61 @@ Seata 将为用户提供了 AT、TCC、SAGA 和 XA 事务模式，为用户打�
 
 ### 事务模式支持
 #### AT （Automatic Transaction）
+
 无侵入的分布式事务解决方案。
 
+##### 前提
+
+- 基于支持本地 ACID 事务的关系型数据库。
+- Java 应用，通过 JDBC 访问数据库。
+
+
+
+AT 模式基于 **支持本地 ACID 事务** 的 **关系型数据库**：
+
+- 一阶段 prepare 行为：在本地事务中，一并提交业务数据更新和相应回滚日志记录。
+
+- 二阶段 commit 行为：马上成功结束，**自动** 异步批量清理回滚日志。
+
+- 二阶段 rollback 行为：通过回滚日志，**自动** 生成补偿操作，完成数据回滚。
+
+  
+
 AT模式分两个阶段来管理全局事务：
-第一阶段： 执行各分支事务
-第二阶段： 控制全局事务最终提交或回滚
+- 第一阶段： 执行各分支事务
+- 第二阶段： 控制全局事务最终提交或回滚
 
 #### TCC （Try Commit Cancel）
-基于两阶段提交（2PC），自定义补偿型，支持把 自定义 的分支事务纳入到全局事务的管理中。
+基于两阶段提交（2PC），自定义补偿型，支持把 **自定义** 的分支事务纳入到全局事务的管理中。
+
+TCC 模式，不依赖于底层数据资源的事务支持：
+
+- 一阶段 prepare 行为：调用 **自定义** 的 prepare 逻辑。
+- 二阶段 commit 行为：调用 **自定义** 的 commit 逻辑。
+- 二阶段 rollback 行为：调用 **自定义** 的 rollback 逻辑。
 
 ![Overview of a global transaction](https://gitee.com/mingzijian/resources/raw/master/picgo/TB14Kguw1H2gK0jSZJnXXaT1FXa-853-482.png)
 
 #### SAGA
+
 长事务解决方案。
+
+理论基础：Hector & Kenneth 发表论⽂ Sagas （1987）
+
+##### 适用场景
+
+- 业务流程长、业务流程多
+- 参与者包含其它公司或遗留系统服务，无法提供 TCC 模式要求的三个接口
 
 业务流程中每个参与者都提交本地事务，当出现某一个参与者失败则补偿前面已经成功的参与者，一阶段正向服务和二阶段补偿服务都由业务开发实现。
 
  ![Saga模式示意图](https://gitee.com/mingzijian/resources/raw/master/picgo/TB1Y2kuw7T2gK0jSZFkXXcIQFXa-445-444.png)
 
 #### XA
+
 分布式事务处理规范
+
+"eXtended Architecture"，简称XA，是一种分布式事务处理的协议。
 
 流程：
 1. TM 开启全局事务
