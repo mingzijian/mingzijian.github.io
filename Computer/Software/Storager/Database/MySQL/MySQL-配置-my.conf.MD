@@ -3,7 +3,7 @@ MySQL- my.conf 配置
 
 默认文件：`/etc/my.conf`
 
-```
+```properties
 
 vim /etc/my.conf
 

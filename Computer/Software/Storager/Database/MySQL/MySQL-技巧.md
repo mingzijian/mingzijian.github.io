@@ -12,7 +12,7 @@ select table_schema                            as '数据库',
        truncate(data_length / 1024 / 1024, 2)  as '数据容量(MB)',
        truncate(index_length / 1024 / 1024, 2) as '索引容量(MB)'
 from information_schema.tables
-where table_schema = 'db_poseidon'
+where table_schema = 'db_xxx'
 order by table_rows desc, index_length desc;
 ```
 
