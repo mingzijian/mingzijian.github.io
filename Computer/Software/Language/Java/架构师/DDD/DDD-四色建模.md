@@ -20,7 +20,7 @@ Moment-Interval 是最重要的一类对象，因为他是系统业务价值所�
 
 这类对象是除 moment-interval 对象外最重要的一类对象，一般用**黄色**表示。
 
-### （3）<span style="background:green;color:white">人-事-物（Party,Place, or Thing）</span>
+### <span style="background:green;color:white">（3）人-事-物（Party,Place, or Thing）</span>
 
 这种对象往往表示的是一种**客观存在**的事物，例如：人、组织、产品或者配件等，这些事物往往会在一种moment-interval 中扮演某个Role。例如，某个人会在一次购买中扮演Customer的角色，也可以在询价中扮演询价人的角色。一般用**绿色**来表示。
 
